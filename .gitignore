@@ -1,0 +1,12 @@
+#SSL 
+ssl/
+sessions/
+# DS 폴더 무시
+.DS_Store
+@eaDir/
+resource/etc/
+resource/img/
+resource/txt/
+logs/
+node_modules/
+.env
