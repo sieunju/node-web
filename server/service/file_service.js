@@ -31,39 +31,39 @@ module.exports = (function () {
                  * MIME_TYPE 파일 포멧 형식
                  * REG_DATE 등록한 시간
                  */
-                sqlQuery = "CREATE TABLE FILE_TB (" +
-                    "ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
-                    "ORG_NAME TEXT, " +
-                    "PATH VARCHAR(80) NOT NULL, " +
-                    "OBJ LONGBLOB NULL, " +
-                    "IS_LOCK BOOLEAN DEFAULT false, " +
-                    "MIME_TYPE VARCHAR(80), " +
-                    "REG_DATE DATETIME DEFAULT current_timestamp" +
-                    ")";
-                con.query(sqlQuery, function (err, result) {
-                    if (err) {
-                        console.log("FILE_TB Create Error " + err);
-                    } else {
-                        console.log("FILE_TB Created");
-                    }
-                });
+                // sqlQuery = "CREATE TABLE FILE_TB (" +
+                //     "ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+                //     "ORG_NAME TEXT, " +
+                //     "PATH VARCHAR(80) NOT NULL, " +
+                //     "OBJ LONGBLOB NULL, " +
+                //     "IS_LOCK BOOLEAN DEFAULT false, " +
+                //     "MIME_TYPE VARCHAR(80), " +
+                //     "REG_DATE DATETIME DEFAULT current_timestamp" +
+                //     ")";
+                // con.query(sqlQuery, function (err, result) {
+                //     if (err) {
+                //         console.log("FILE_TB Create Error " + err);
+                //     } else {
+                //         console.log("FILE_TB Created");
+                //     }
+                // });
 
                 /**
                  * TableName AUTH_TB
                  * ID PK
                  * AUTH_KEY 인증키
                  */
-                sqlQuery = "CREATE TABLE AUTH_TB (" +
-                    "ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
-                    "AUTH_KEY VARCHAR(100) NOT NULL" +
-                    ");"
-                con.query(sqlQuery, function (err, result) {
-                    if (err) {
-                        console.log("AUTH_TB Error " + err);
-                    } else {
-                        console.log("AUTH_TB Created");
-                    }
-                });
+                // sqlQuery = "CREATE TABLE AUTH_TB (" +
+                //     "ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+                //     "AUTH_KEY VARCHAR(100) NOT NULL" +
+                //     ");"
+                // con.query(sqlQuery, function (err, result) {
+                //     if (err) {
+                //         console.log("AUTH_TB Error " + err);
+                //     } else {
+                //         console.log("AUTH_TB Created");
+                //     }
+                // });
 
                 /**
                  * TableName BUF_FILE_TB
@@ -71,18 +71,18 @@ module.exports = (function () {
                  * PATH 파일 경로
                  * 
                  */
-                sqlQuery = "CREATE TABLE BUF_FILE_TB (" +
-                    "FILE_ID INT NOT NULL, " +
-                    "PATH VARCHAR(80) NOT NULL, " +
-                    "FOREIGN KEY(FILE_ID) REFERENCES FILE_TB(ID) ON DELETE CASCADE ON UPDATE RESTRICT" +
-                    ")"
-                con.query(sqlQuery, function (err, result) {
-                    if (err) {
-                        console.log("BUF_FILE_TB Error " + err);
-                    } else {
-                        console.log("BUF_FILE_TB Created");
-                    }
-                });
+                // sqlQuery = "CREATE TABLE BUF_FILE_TB (" +
+                //     "FILE_ID INT NOT NULL, " +
+                //     "PATH VARCHAR(80) NOT NULL, " +
+                //     "FOREIGN KEY(FILE_ID) REFERENCES FILE_TB(ID) ON DELETE CASCADE ON UPDATE RESTRICT" +
+                //     ")"
+                // con.query(sqlQuery, function (err, result) {
+                //     if (err) {
+                //         console.log("BUF_FILE_TB Error " + err);
+                //     } else {
+                //         console.log("BUF_FILE_TB Created");
+                //     }
+                // });
 
                 /**
                  * TableName DEL_FILE_TB
@@ -90,19 +90,19 @@ module.exports = (function () {
                  * IS_LOCK 관리자가 직접 삭제 해야 하는 리소스인지 유무 Flag
                  * DATE 삭제 요청한 날짜
                  */
-                sqlQuery = "CREATE TABLE DEL_FILE_TB (" +
-                    "FILE_ID INT NOT NULL, " +
-                    "IS_LOCK BOOLEAN DEFAULT false, " +
-                    "DATE DATETIME DEFAULT current_timestamp, " +
-                    "FOREIGN KEY(FILE_ID) REFERENCES FILE_TB(ID) ON DELETE CASCADE ON UPDATE RESTRICT" +
-                    ")"
-                con.query(sqlQuery, function (err, result) {
-                    if (err) {
-                        console.log("DEL_FILE_TB Error " + err);
-                    } else {
-                        console.log("DEL_FILE_TB Created");
-                    }
-                });
+                // sqlQuery = "CREATE TABLE DEL_FILE_TB (" +
+                //     "FILE_ID INT NOT NULL, " +
+                //     "IS_LOCK BOOLEAN DEFAULT false, " +
+                //     "DATE DATETIME DEFAULT current_timestamp, " +
+                //     "FOREIGN KEY(FILE_ID) REFERENCES FILE_TB(ID) ON DELETE CASCADE ON UPDATE RESTRICT" +
+                //     ")"
+                // con.query(sqlQuery, function (err, result) {
+                //     if (err) {
+                //         console.log("DEL_FILE_TB Error " + err);
+                //     } else {
+                //         console.log("DEL_FILE_TB Created");
+                //     }
+                // });
 
 
                 con.release()

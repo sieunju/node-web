@@ -1,0 +1,33 @@
+<html lang=“ko”>
+<script type="text/javascript" src="../../js/jquery-3.4.1.min.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link type="text/css" rel="stylesheet" href="../../css/materialize.css" media="screen,projection" />
+  <script type="text/javascript" src="../../js/materialize.js"></script>
+
+  <script type=“text/javascript” charset=“UTF-8”>
+      function doSearch(){
+        new daum.Postcode({
+          q: document.getElementById("searchStr").value,
+          onsearch: function(data) {
+          console.log("[s]======================================")
+          console.log(data)  
+          console.log("[s]======================================")
+          }
+      });
+    </script>
+</head>
+
+<body>
+  <div class="input-field col s6">
+    <input id="searchStr" name="searchStr" type="text" class="validate">
+    <label for="searchStr">검색어 입력</label>
+    <button id="btn-search" onclick="doSearch()" type="button" class="waves-effect waves-light btn"
+      style="width:100%;">조회</button>
+  </div>
+</body>
+
+</html>
