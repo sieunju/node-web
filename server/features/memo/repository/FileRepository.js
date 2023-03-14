@@ -1,5 +1,5 @@
-const db = require('../features/memo/db_config');
-const utils = require('../utils/commandUtil');
+const localService = require('../../../service/memo_service');
+const utils = require('../../../utils/commandUtil');
 const StringBuffer = require('stringbuffer');
 const fs = require('fs');
 
@@ -15,7 +15,7 @@ const Upload = {
         const query = 'INSERT INTO MEMO_FILE_TB (MEMO_ID, RESOURCE_PATH, REGISTER_DATE) VALUES (?,?,?)'
         const params = [memoId, filePath, new Date()]
 
-        db.fetch(query, params, callBack)
+        localService.fetch(query, params, callBack)
     },
 
     /**
@@ -27,7 +27,7 @@ const Upload = {
     deleteFile: function (fileId, filePath, callBack) {
         const query = 'DELETE FROM MEMO_FILE_TB WHERE (UID=? AND RESOURCE_PATH=?)'
         const params = [fileId,filePath]
-        db.fetch(query,params,callBack)
+        localService.fetch(query,params,callBack)
     },
 
     deleteFiles: function (manageNoList, pathList, callBack) {
@@ -45,7 +45,7 @@ const Upload = {
             }
         }
 
-        db.fetch(queryBuf.toString(), paramsArr, callBack)
+        localService.fetch(queryBuf.toString(), paramsArr, callBack)
     }
 };
 

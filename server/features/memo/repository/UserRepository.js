@@ -1,5 +1,5 @@
 const localService = require('../../../service/memo_service');
-const utils = require('../utils/commandUtil');
+const utils = require('../../../utils/commandUtil');
 const StringBuffer = require('stringbuffer');
 
 const User = {

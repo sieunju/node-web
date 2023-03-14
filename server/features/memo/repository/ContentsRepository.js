@@ -1,5 +1,5 @@
-const db = require('../features/memo/db_config');
-const utils = require('../utils/commandUtil');
+const localService = require('../../../service/memo_service');
+const utils = require('../../../utils/commandUtil');
 const StringBuffer = require('stringbuffer');
 const fs = require('fs');
 
@@ -22,7 +22,7 @@ const Memo = {
         const sql = 'INSERT INTO MEMO_TB (USER_ID, TAG, TITLE, CONTENTS, REGISTER_DATE)' +
             'VALUES(?,?,?,?,?)';
         const params = [userId, body.tag, body.title, contents, currentDate];
-        db.fetch(sql, params, callBack)
+        localService.fetch(sql, params, callBack)
     },
 
     postAndroidMemo: function (body, callBack) {
@@ -32,7 +32,7 @@ const Memo = {
         const sql = 'INSERT INTO AND_MEMO_TB (TITLE, CONTENTS, REGISTER_DATE)' +
             'VALUES(?,?,?)';
         const params = [title, contents, date]
-        db.fetch(sql, params, callBack)
+        localService.fetch(sql, params, callBack)
     },
 
     postJavaMemo: function (body, callBack) {
@@ -42,17 +42,17 @@ const Memo = {
         const sql = 'INSERT INTO JAVA_MEMO_TB (TITLE, CONTENTS, REGISTER_DATE)' +
             'VALUES(?,?,?)';
         const params = [title, contents, date]
-        db.fetch(sql, params, callBack)
+        localService.fetch(sql, params, callBack)
     },
 
     fetchAndroidMemo: function (callBack) {
         const sql = 'SELECT TITLE, CONTENTS FROM AND_MEMO_TB ORDER BY ID ASC'
-        db.fetch(sql, null, callBack)
+        localService.fetch(sql, null, callBack)
     },
 
     fetchJavaMemo: function (callBack) {
         const sql = 'SELECT TITLE, CONTENTS FROM JAVA_MEMO_TB ORDER BY ID ASC'
-        db.fetch(sql, null, callBack)
+        localService.fetch(sql, null, callBack)
     },
 
     /**
@@ -152,7 +152,7 @@ const Memo = {
         // [e] SQL Query
         // console.log('Query ' + queryBuf.toString())
         // console.log('QUery Params ' + paramsArr)
-        db.fetch(queryBuf.toString(), paramsArr, callBack);
+        localService.fetch(queryBuf.toString(), paramsArr, callBack);
     },
 
     /**
@@ -170,7 +170,7 @@ const Memo = {
 
         const sql = 'UPDATE MEMO_TB SET TAG=?, TITLE=?, CONTENTS=?, REGISTER_DATE=? WHERE MEMO_ID=?';
         const params = [body.tag, body.title, contents, new Date(), body.memo_id];
-        db.fetch(sql, params, callBack);
+        localService.fetch(sql, params, callBack);
     },
 
     /**
@@ -188,7 +188,7 @@ const Memo = {
         const paramsArr = new Array();
         paramsArr.push(query.memo_id)
         paramsArr.push(userId)
-        db.fetch(sql, paramsArr, callBack)
+        localService.fetch(sql, paramsArr, callBack)
     },
 
     /**

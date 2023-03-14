@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const utils = require('../utils/commandUtil');
+const utils = require('../../../utils/commandUtil');
 
 
 // [S] TEST

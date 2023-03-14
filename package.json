@@ -2,7 +2,7 @@
   "name": "node-web",
   "version": "1.0.0",
   "description": "크하하하 설명따윈 필요 없다.",
-  "main": "server/node-server.js",
+  "main": "node-server.js",
   "dependencies": {
     "app-module-path": "^2.2.0",
     "app-root-path": "^3.0.0",

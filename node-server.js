@@ -2,14 +2,17 @@ const express = require('express');
 const session = require('express-session');
 const fileStore = require('session-file-store')(session);
 const app = express();
-require('dotenv').config();                     // Environment Variable Setting
-require('./server/features/memo/db_config').init();        // DB Setting
+require('dotenv').config(); // Environment Variable Setting
+
+// Local Db Config
+require('./server/service/memo_service').init()
+require('./server/service/file_service').init()
+
 // const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const serveStatic = require('serve-static');      //특정 폴더의 파일들을 특정 패스로 접근할 수 있도록 열어주는 역할
-const api = require('./server/routes/index');
-// const bodyParser = require('body-parser');
+const memoFeature = require('./server/features/memo/controller/index') // Memo Feature
 const cookieParser = require('cookie-parser');
 const cors = require('cors'); //다중 서버로 접속하게 해주는 기능을 제공, 다른 ip 로 다른서버에 접속
 const utils = require('./server/utils/commandUtil');
@@ -38,15 +41,13 @@ app.use(express.urlencoded({
   limit: "50mb",
   extended: true
 }))
-// app.use(bodyParser.urlencoded({
-//   limit: "50mb",
-//   extended: true
-// })); // 웹에서 API Call
 app.use(express.json({
   limit: "50mb"
-})); // API Call 할때.                            
-app.use('/', api);                                  // 라우터 경로 세팅
-app.use(cookieParser(process.env.COOKIE_KEY));      // 쿠키 세팅
+})); // API Call 할때.
+
+app.use('/memo', memoFeature); // memo feature 
+
+app.use(cookieParser(process.env.COOKIE_KEY)); // 쿠키 세팅      
 
 var concat = require('concat-stream');
 app.use(function (req, res, next) {

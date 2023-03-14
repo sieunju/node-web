@@ -5,10 +5,10 @@
  */
 const express = require('express');
 const multer = require('multer');
-const utils = require('../utils/commandUtil');
+const utils = require('../../../utils/commandUtil');
 const path = require('path');
 const fs = require('fs');
-const dataModel = require('../models/uploadModel');
+const repository = require('../repository/UserRepository');
 
 const storage = multer.diskStorage({
     // 서버에 저장할 폴더 생성.
@@ -66,7 +66,7 @@ router.post('/api/uploads', upload.array('files'), (req, res) => {
             let callBackCnt = 0
 
             req.files.forEach(e => {
-                dataModel.addFile(memoId, e.path, function onMessage(err, rows) {
+                repository.addFile(memoId, e.path, function onMessage(err, rows) {
                     callBackCnt++
                     // Sql Error
                     if (err) {
@@ -138,7 +138,7 @@ router.delete('/api/uploads', (req, res) => {
         const callBackLength = manageNoList.length
         let callBackCnt = 0
         for (let i = 0; i < callBackLength; i++) {
-            dataModel.deleteFile(manageNoList[i], pathList[i], function onMessage(err, rows) {
+            repository.deleteFile(manageNoList[i], pathList[i], function onMessage(err, rows) {
                 callBackCnt++
                 // Sql Error 
                 if (err) {

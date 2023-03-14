@@ -15,25 +15,95 @@ module.exports = (function () {
         init: function () {
             pool.getConnection(function (err, con) {
                 if (err) {
-                    console.log("MariaDB Connection Error " + err)
+                    console.log("FileDB Error " + err)
                     throw err;
                 }
-                console.log("MariaDB Database Connected!");
+                console.log("File DB Connected!");
+                let sqlQuery;
 
                 /**
-                 * Table Spec
-                 *  FILE_TB
-                    ID (int) NOT NULL Auto Increment
-                    PATH (varchar 80) NOT NULL 파일 경로
-                    OBJ (longblob) NULL 파일 바이너리
-                    IS_LOCK (tintyint or boolean) 0 관리자가 직접 삭제 유무에 대한 Flag
-                    REG_DATE (date) current timestamp 파일 저장된 시간
-
-                    DEL_FILE_TB 정기적으로 삭제할 파일들에 대한 테이블 (FK FILE_TB > ID)
-                    FILE (int) 삭제할 파일 ID값
-                    IS_LOCK (tintyint or boolean) 0 관리자가 직접 삭제 유무에 대한 Flag
-                    DATE (date) current timestamp 삭제를 요청한 날짜
+                 * TableName FILE_TB
+                 * ID PK
+                 * ORG_NAME 원본 이름
+                 * PATH 파일 경로
+                 * OBJ 파일 바이너리 Deprecated
+                 * IS_LOCK 관리자가 직접 삭제 유무에 대한 flag 값
+                 * MIME_TYPE 파일 포멧 형식
+                 * REG_DATE 등록한 시간
                  */
+                sqlQuery = "CREATE TABLE FILE_TB (" +
+                    "ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+                    "ORG_NAME TEXT, " +
+                    "PATH VARCHAR(80) NOT NULL, " +
+                    "OBJ LONGBLOB NULL, " +
+                    "IS_LOCK BOOLEAN DEFAULT false, " +
+                    "MIME_TYPE VARCHAR(80), " +
+                    "REG_DATE DATETIME DEFAULT current_timestamp" +
+                    ")";
+                con.query(sqlQuery, function (err, result) {
+                    if (err) {
+                        console.log("FILE_TB Create Error " + err);
+                    } else {
+                        console.log("FILE_TB Created");
+                    }
+                });
+
+                /**
+                 * TableName AUTH_TB
+                 * ID PK
+                 * AUTH_KEY 인증키
+                 */
+                sqlQuery = "CREATE TABLE AUTH_TB (" +
+                    "ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+                    "AUTH_KEY VARCHAR(100) NOT NULL" +
+                    ");"
+                con.query(sqlQuery, function (err, result) {
+                    if (err) {
+                        console.log("AUTH_TB Error " + err);
+                    } else {
+                        console.log("AUTH_TB Created");
+                    }
+                });
+
+                /**
+                 * TableName BUF_FILE_TB
+                 * FILE_ID FK -> FILE_TB (ID)
+                 * PATH 파일 경로
+                 * 
+                 */
+                sqlQuery = "CREATE TABLE BUF_FILE_TB (" +
+                    "FILE_ID INT NOT NULL, " +
+                    "PATH VARCHAR(80) NOT NULL, " +
+                    "FOREIGN KEY(FILE_ID) REFERENCES FILE_TB(ID) ON DELETE CASCADE ON UPDATE RESTRICT" +
+                    ")"
+                con.query(sqlQuery, function (err, result) {
+                    if (err) {
+                        console.log("BUF_FILE_TB Error " + err);
+                    } else {
+                        console.log("BUF_FILE_TB Created");
+                    }
+                });
+
+                /**
+                 * TableName DEL_FILE_TB
+                 * FILE_ID FK -> FILE_TB (ID)
+                 * IS_LOCK 관리자가 직접 삭제 해야 하는 리소스인지 유무 Flag
+                 * DATE 삭제 요청한 날짜
+                 */
+                sqlQuery = "CREATE TABLE DEL_FILE_TB (" +
+                    "FILE_ID INT NOT NULL, " +
+                    "IS_LOCK BOOLEAN DEFAULT false, " +
+                    "DATE DATETIME DEFAULT current_timestamp, " +
+                    "FOREIGN KEY(FILE_ID) REFERENCES FILE_TB(ID) ON DELETE CASCADE ON UPDATE RESTRICT" +
+                    ")"
+                con.query(sqlQuery, function (err, result) {
+                    if (err) {
+                        console.log("DEL_FILE_TB Error " + err);
+                    } else {
+                        console.log("DEL_FILE_TB Created");
+                    }
+                });
+
 
                 con.release()
                 setInterval(keepAlive, 60 * 60 * 1000);

@@ -3,8 +3,8 @@
  * Created by hmju
  */
 const express = require('express');
-const dataModel = require('../models/accountModel');
-const utils = require('../utils/commandUtil');
+const repository = require('../repository/UserRepository');
+const utils = require('../../../utils/commandUtil');
 
 const router = express.Router();
 // 어짜피 나만 쓸거니까 회원가입 따윈 PASSSSSSSSS
@@ -56,7 +56,7 @@ router.post('/api/signUp', (req, res) => {
     const body = req.body;
     console.log("Sign Up ID\t" + body.user_id);
     console.log("Sign Up Pw\t" + body.user_pw);
-    dataModel.postUser(body);
+    repository.postUser(body);
     res.status(200);
     res.write('Account Register Success');
     res.end();
@@ -81,7 +81,7 @@ router.post('/api/signUp', (req, res) => {
 router.post('/api/signIn', (req, res) => {
     try {
         const loginKey = utils.reqInfo(req).loginKey
-        dataModel.fetchUser(loginKey, req.body, function onMessage(err, rows) {
+        repository.fetchUser(loginKey, req.body, function onMessage(err, rows) {
             if (err) {
                 res.status(400).send({
                     status: false,

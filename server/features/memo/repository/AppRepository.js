@@ -1,16 +1,16 @@
-const db = require('../features/memo/db_config');
-const utils = require('../utils/commandUtil');
+const localService = require('../../../service/memo_service');
+const utils = require('../../../utils/commandUtil');
 const StringBuffer = require('stringbuffer');
 
 const App = {
-    
+
     /**
      * 
      * @param {App Info} appInfo 
      * @param {listener} callBack  Query 문 수행후 콜백 하는 리스너.
      */
-    versionCheck: function(appInfo, callBack){
-        
+    versionCheck: function (appInfo, callBack) {
+
         // [s] SQL Query
         const queryBuf = new StringBuffer();
         const paramsArr = new Array();
@@ -18,19 +18,19 @@ const App = {
         queryBuf.append('WHERE OS_TYPE=? ')
 
         // 안드로이드인 경우.
-        if(appInfo.osType == 'AND'){
+        if (appInfo.osType == 'AND') {
             paramsArr.push('AND');
-        } 
+        }
         // iOS 인경우.
-        else if(appInfo.osType == 'iOS'){
+        else if (appInfo.osType == 'iOS') {
             paramsArr.push('iOS');
-        } 
+        }
         // 유효하지 않은 타입인경우.
         else {
-            callBack.onMessage('유효하지 않은 OS 입니다.',null)
+            callBack.onMessage('유효하지 않은 OS 입니다.', null)
             return
         }
-        db.fetch(queryBuf.toString(),paramsArr,callBack);
+        localService.fetch(queryBuf.toString(), paramsArr, callBack);
 
     }
 };

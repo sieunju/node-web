@@ -4,8 +4,8 @@
  */
 const express = require('express');
 const router = express.Router();
-const dataModel = require('../models/contentModel');
-const utils = require('../utils/commandUtil');
+const repository = require('../repository/ContentsRepository');
+const utils = require('../../../utils/commandUtil');
 
 // [s] Page
 
@@ -77,7 +77,7 @@ router.post('/api/memo', (req, res) => {
         console.log(req.body)
         const cmmInfo = utils.reqInfo(req);
         console.log('AddMemo LoginKey: ' + cmmInfo.loginKey)
-        dataModel.addMemo(cmmInfo.loginKey, req.body, function onMessage(err, rows) {
+        repository.addMemo(cmmInfo.loginKey, req.body, function onMessage(err, rows) {
             if (err) {
                 console.log('Sql Error ' + err)
                 res.status(416).send({
@@ -115,7 +115,7 @@ router.post('/api/memo', (req, res) => {
 router.post('/api/v2/android',(req,res) => {
     try {
         console.log(req.body)
-        dataModel.postAndroidMemo(req.body, function onMessage(err,rows) {
+        repository.postAndroidMemo(req.body, function onMessage(err,rows) {
             if(err) {
                 console.log("POST /api/v2/android/memo Error " + err)
                 res.status(416).send({
@@ -139,7 +139,7 @@ router.post('/api/v2/android',(req,res) => {
 
 router.get('/api/v2/android',(req,res) => {
     try {
-        dataModel.fetchAndroidMemo(function onMessage(err,rows) {
+        repository.fetchAndroidMemo(function onMessage(err,rows) {
             if(err) {
                 console.log("GET /api/v2/android Error " + err)
                 res.status(416).send({
@@ -169,7 +169,7 @@ router.get('/api/v2/android',(req,res) => {
 router.post('/api/java',(req,res) => {
     try {
         console.log(req.body)
-        dataModel.postJavaMemo(req.body, function onMessage(err,rows) {
+        repository.postJavaMemo(req.body, function onMessage(err,rows) {
             if(err) {
                 console.log("POST /api/java/memo Error " + err)
                 res.status(416).send({
@@ -193,7 +193,7 @@ router.post('/api/java',(req,res) => {
 
 router.get('/api/java',(req,res) => {
     try {
-        dataModel.fetchJavaMemo(function onMessage(err,rows) {
+        repository.fetchJavaMemo(function onMessage(err,rows) {
             if(err) {
                 console.log("GET /api/java Error " + err)
                 res.status(416).send({
@@ -240,7 +240,7 @@ router.get('/api/memo', (req, res) => {
             currentPage = Number(req.query.pageNo);
         }
 
-        dataModel.fetchMemo(loginKey, req.query, function onMessage(err, rows) {
+        repository.fetchMemo(loginKey, req.query, function onMessage(err, rows) {
             if (err) {
                 utils.logE('GetMemo Sql Error LoginKey: ' + loginKey + '\t' + err)
 
@@ -333,7 +333,7 @@ router.put('/api/memo', (req, res) => {
     try {
         const cmmInfo = utils.reqInfo(req)
 
-        dataModel.updateMemo(cmmInfo.loginKey, req.body, function onMessage(err) {
+        repository.updateMemo(cmmInfo.loginKey, req.body, function onMessage(err) {
             if (err) {
                 utils.logE('Update Memo SQL Fail LoginKey: ' + cmmInfo.loginKey + '\t ' + err)
                 // 앱인경우
@@ -373,7 +373,7 @@ router.put('/api/memo', (req, res) => {
 router.delete('/api/memo', (req, res) => {
     try {
         const cmmInfo = utils.reqInfo(req)
-        dataModel.deleteMemo(cmmInfo.loginKey, req.query, function onMessage(err, rows) {
+        repository.deleteMemo(cmmInfo.loginKey, req.query, function onMessage(err, rows) {
             if (err) {
                 // 앱인경우
                 if (utils.isApp(cmmInfo)) {

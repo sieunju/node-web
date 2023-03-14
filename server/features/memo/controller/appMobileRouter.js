@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const dataModel = require('../models/appMobileModel');
-const utils = require('../utils/commandUtil');
+const repository = require('../repository/AppRepository');
+const utils = require('../../../utils/commandUtil');
 
 // [s] API
 /**
@@ -11,7 +11,7 @@ router.get('/api/app/version', (req, res) => {
     try {
         const appInfo = utils.reqInfo(req);
         console.log(appInfo)
-        dataModel.versionCheck(appInfo, function onMessage(err, rows) {
+        repository.versionCheck(appInfo, function onMessage(err, rows) {
             if (err) {
                 console.log(req.url, "Error " + err);
                 res.status(416).send({

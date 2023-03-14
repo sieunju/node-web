@@ -1,6 +1,5 @@
 const mysql = require('mysql')
 require('dotenv').config()
-
 const config = {
     host: process.env.MEMO_DB_HOST,
     port: process.env.MEMO_DB_PORT,
@@ -12,16 +11,15 @@ const config = {
 }
 
 const pool = mysql.createPool(config);
-
 module.exports = (function () {
     return {
         init: function () {
             pool.getConnection(function (err, con) {
                 if (err) {
-                    // con.release();
+                    console.log("MemoDB Error " + err)
                     throw err;
                 }
-                console.log("MySql Database Connected!");
+                console.log("Memo DB Connected!");
                 let sqlQuery;
                 // randomMemo(con);
 
@@ -44,7 +42,6 @@ module.exports = (function () {
                     ")";
                 // Account Table Create
                 con.query(sqlQuery, function (err, rows) {
-
                     if (err) {
                         console.log("Create Account Table Error " + err);
                     } else {
