@@ -22,7 +22,7 @@ const androidFeature = require('./server/features/android/index')
 const appFeature = require('./server/features/app/index')
 const deeplinkFeature = require('./server/features/deeplink/index')
 const dummyFeature = require('./server/features/dummy/index')
-// const fileFeature = require('./server/features/file/index')
+const uploadsFeature = require('./server/features/uploads/index')
 const javaFeature = require('./server/features/java/index')
 const memoFeature = require('./server/features/memo/index')
 const memoUploadFeature = require('./server/features/memo_upload/index')
@@ -55,15 +55,15 @@ app.use(express.json({
   limit: "50mb"
 })); // API Call 할때.
 
-app.use('/',accountFeature);
-app.use('/',androidFeature);
-app.use('/',appFeature);
-app.use('/',deeplinkFeature);
-app.use('/',dummyFeature);
-// app.use('/',fileFeature);
-app.use('/',javaFeature);
-app.use('/',memoFeature);
-app.use('/',memoUploadFeature);
+app.use('/', accountFeature);
+app.use('/', androidFeature);
+app.use('/', appFeature);
+app.use('/', deeplinkFeature);
+app.use('/', dummyFeature);
+app.use('/', uploadsFeature);
+app.use('/', javaFeature);
+app.use('/', memoFeature);
+app.use('/', memoUploadFeature);
 
 app.use(cookieParser(process.env.COOKIE_KEY)); // 쿠키 세팅      
 
@@ -144,7 +144,7 @@ utils.checkDir(fs, process.env.UPLOAD_ROOT, function (isSuccess, msg) {
 //     console.log('Redeirect Http Server Start, Port: ' + 100);
 //   })
 // }
- 
+
 const http = require('http');
 http.createServer(app).listen(process.env.PORT, () => {
   console.log('Http Server Start, Port: ' + process.env.PORT);

@@ -227,3 +227,30 @@ exports.isEmpty = function(value) {
         return false
     }
 }
+
+exports.getCurrentDate = function () {
+    const date = new Date()
+    const year = date.getFullYear().toString()
+    let month = date.getMonth() + 1
+    month = month < 10 ? '0' + month.toString() : month.toString()
+    let day = date.getDate()
+    day = day < 10 ? '0' + day.toString() : day.toString()
+    return year + '' + month + '' + day
+}
+
+exports.checkAuth = function (findAuthKey,callback) {
+    authModel.fetchAutkKey(function onMessage(err,rows) {
+        if(err) {
+            callback(false)
+            return
+        }
+        console.log(findAuthKey)
+        rows.forEach(e => {
+            if(e.AUTH_KEY == findAuthKey) {
+                callback(true)
+                return
+            }
+        });
+        callback(false)
+    })
+}
