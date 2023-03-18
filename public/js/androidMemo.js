@@ -1,7 +1,7 @@
 
 window.onload = function () {
     console.log(window.location.pathname)
-    if (window.location.pathname == "/page/android") {
+    if (window.location.pathname == "/view/android") {
         fetchAndroidMemo()
     } else {
         // 타이틀 엔터키 방지 로직
@@ -29,7 +29,7 @@ window.onload = function () {
 function fetchAndroidMemo() {
     $.ajax({
         type: "GET",
-        url: "../api/v2/android",
+        url: "/api/android",
         dataType: "JSON",
         success: function (json) {
 

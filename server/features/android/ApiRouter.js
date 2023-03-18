@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
                 }).end();
             } else {
                 console.log("DB Success " + rows)
-                res.redirect('/page/android')
+                res.redirect('/view/android')
             }
         })
 
