@@ -1,5 +1,5 @@
 /**
- * 랜덤 상품 데이터 호출 라우터
+ * 랜덤 상품 데이터 호출 라우터 
  */
 const express = require('express');
 const router = express.Router();
