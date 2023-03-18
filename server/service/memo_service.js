@@ -32,22 +32,22 @@ module.exports = (function () {
                  * RES_PATH         -> 프로필 사진 경로
                  * REGISTER_DATE    -> 사용자 등록 날짜 
                  */
-                sqlQuery = "CREATE TABLE ACT_USERS_TB (" +
-                    "USER_NM VARCHAR(30)," + 
-                    "USER_ID VARCHAR(30) PRIMARY KEY," +
-                    "LOGIN_KEY VARCHAR(200) NOT NULL," +
-                    "USER_PW VARCHAR(40)," +
-                    "RES_PATH VARCHAR(80)," +
-                    "REGISTER_DATE DATETIME" +
-                    ")";
-                // Account Table Create
-                con.query(sqlQuery, function (err, rows) {
-                    if (err) {
-                        console.log("Create Account Table Error " + err);
-                    } else {
-                        console.log("Account Table Created");
-                    }
-                });
+                // sqlQuery = "CREATE TABLE ACT_USERS_TB (" +
+                //     "USER_NM VARCHAR(30)," + 
+                //     "USER_ID VARCHAR(30) PRIMARY KEY," +
+                //     "LOGIN_KEY VARCHAR(200) NOT NULL," +
+                //     "USER_PW VARCHAR(40)," +
+                //     "RES_PATH VARCHAR(80)," +
+                //     "REGISTER_DATE DATETIME" +
+                //     ")";
+                // // Account Table Create
+                // con.query(sqlQuery, function (err, rows) {
+                //     if (err) {
+                //         console.log("Create Account Table Error " + err);
+                //     } else {
+                //         console.log("Account Table Created");
+                //     }
+                // });
 
                 /**
                  * USER_ID          -> 사용자 아이디
@@ -58,23 +58,23 @@ module.exports = (function () {
                  * CONTENTS         -> 내용
                  * REGISTER_DATE    -> 등록 날짜 DATETIME
                  */
-                sqlQuery = "CREATE TABLE MEMO_TB (" +
-                    "USER_ID VARCHAR(30) NOT NULL," +
-                    "MEMO_ID SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
-                    "TAG SMALLINT," +
-                    "NUM SMALLINT," +
-                    "TITLE VARCHAR(200) NOT NULL," +
-                    "CONTENTS VARCHAR(800) NOT NULL," +
-                    "REGISTER_DATE DATETIME" +
-                    ")";
-                // Memo Table Create
-                con.query(sqlQuery, function (err, result) {
-                    if (err) {
-                        console.log("Create Memo Table Error " + err);
-                    } else {
-                        console.log("Memo Table Created");
-                    }
-                });
+                // sqlQuery = "CREATE TABLE MEMO_TB (" +
+                //     "USER_ID VARCHAR(30) NOT NULL," +
+                //     "MEMO_ID SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+                //     "TAG SMALLINT," +
+                //     "NUM SMALLINT," +
+                //     "TITLE VARCHAR(200) NOT NULL," +
+                //     "CONTENTS VARCHAR(800) NOT NULL," +
+                //     "REGISTER_DATE DATETIME" +
+                //     ")";
+                // // Memo Table Create
+                // con.query(sqlQuery, function (err, result) {
+                //     if (err) {
+                //         console.log("Create Memo Table Error " + err);
+                //     } else {
+                //         console.log("Memo Table Created");
+                //     }
+                // });
 
                 /**
                  * OS_TYPE              -> APP OS 정보
@@ -83,21 +83,20 @@ module.exports = (function () {
                  * LATE_VERSION_NM      -> 최신 버전 (이름)
                  * LATE_VERSION_CD      -> 최신 버전 (코드)
                  */
-                sqlQuery = "CREATE TABLE APP_VERSION_TB (" +
-                    "OS_TYPE VARCHAR(10) NOT NULL," +
-                    "CURRENT_VERSION_NM VARCHAR(20)," +
-                    "CURRENT_VERSION_CD SMALLINT," +
-                    "LATE_VERSION_NM VARChAR(20)," +
-                    "LATE_VERSION_CD SMALLINT" +
-                    ")";
-                // APP Info Table Create
-                con.query(sqlQuery, function (err, result) {
-                    if (err) {
-                        console.log("Create App Version Table Error " + err)
-                    } else {
-                        console.log("App Version Created")
-                    }
-                });
+                // sqlQuery = "CREATE TABLE APP_VERSION_TB (" +
+                //     "OS_TYPE VARCHAR(10) NOT NULL," +
+                //     "CURRENT_VERSION_NM VARCHAR(20)," +
+                //     "CURRENT_VERSION_CD SMALLINT," +
+                //     "LATE_VERSION_NM VARChAR(20)," +
+                //     "LATE_VERSION_CD SMALLINT" +
+                //     ")";
+                // con.query(sqlQuery, function (err, result) {
+                //     if (err) {
+                //         console.log("Create App Version Table Error " + err)
+                //     } else {
+                //         console.log("App Version Created")
+                //     }
+                // });
 
                 /**
                 * MEMO_ID              -> FK( MEMO_TB MEMO_ID )
@@ -105,22 +104,21 @@ module.exports = (function () {
                 * RES_URL              -> 이미지 / 파일 경로
                 * REGISTER_DATE      -> 등록 날짜
                 */
-                sqlQuery = "CREATE TABLE MEMO_FILE_TB ( " +
-                    "MEMO_ID SMALLINT NOT NULL, " +
-                    "UID SMALLINT NOT NULL AUTO_INCREMENT, " +
-                    "RES_URL VARCHAR(80), " +
-                    "REGISTER_DATE DATETIME, " +
-                    "PRIMARY KEY (UID)," +
-                    "FOREIGN KEY (MEMO_ID) REFERENCES MEMO_TB(MEMO_ID)" +
-                    ")";
-                // File Table Create
-                con.query(sqlQuery, function (err, result) {
-                    if (err) {
-                        console.log("Create MEMO File Table Error " + err)
-                    } else {
-                        console.log("MEMO File Created")
-                    }
-                })
+                // sqlQuery = "CREATE TABLE MEMO_FILE_TB ( " +
+                //     "MEMO_ID SMALLINT NOT NULL, " +
+                //     "UID SMALLINT NOT NULL AUTO_INCREMENT, " +
+                //     "RES_URL VARCHAR(80), " +
+                //     "REGISTER_DATE DATETIME, " +
+                //     "PRIMARY KEY (UID)," +
+                //     "FOREIGN KEY (MEMO_ID) REFERENCES MEMO_TB(MEMO_ID)" +
+                //     ")";
+                // con.query(sqlQuery, function (err, result) {
+                //     if (err) {
+                //         console.log("Create MEMO File Table Error " + err)
+                //     } else {
+                //         console.log("MEMO File Created")
+                //     }
+                // })
 
                 // Dump Data START TEST 용
                 // randomMemo(con)
@@ -130,15 +128,15 @@ module.exports = (function () {
                 /**
                  * 데이터 베이스 기본 언어 변경
                  */
-                sqlQuery = "ALTER DATABASE DB_MEMO DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci";
-                // Database 언어 변경
-                con.query(sqlQuery,function(err,result){
-                    if (err) {
-                        console.log("Database Alter Error " + err);
-                    } else {
-                        console.log("Database Alter Success");
-                    }
-                });
+                // sqlQuery = "ALTER DATABASE DB_MEMO DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci";
+                // // Database 언어 변경
+                // con.query(sqlQuery,function(err,result){
+                //     if (err) {
+                //         console.log("Database Alter Error " + err);
+                //     } else {
+                //         console.log("Database Alter Success");
+                //     }
+                // });
 
                 // Android 기본 개념 DB
                 /**
@@ -147,20 +145,64 @@ module.exports = (function () {
                  * CONTENTS         -> 내용
                  * REGISTER_DATE    -> 등록 날짜 DATETIME
                  */
-                sqlQuery = "CREATE TABLE AND_MEMO_TB (" +
-                    "ID SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
-                    "TITLE VARCHAR(800) NOT NULL," +
-                    "CONTENTS VARCHAR(2000) NOT NULL," +
-                    "REGISTER_DATE DATETIME" +
-                    ")";
-                // Memo Table Create
-                con.query(sqlQuery, function (err, result) {
-                    if (err) {
-                        console.log("Create Memo Table Error " + err);
-                    } else {
-                        console.log("Memo Table Created");
-                    }
-                });
+                // sqlQuery = "CREATE TABLE AND_MEMO_TB (" +
+                //     "ID SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+                //     "TITLE VARCHAR(800) NOT NULL," +
+                //     "CONTENTS VARCHAR(2000) NOT NULL," +
+                //     "REGISTER_DATE DATETIME" +
+                //     ")";
+                // // Memo Table Create
+                // con.query(sqlQuery, function (err, result) {
+                //     if (err) {
+                //         console.log("Create Memo Table Error " + err);
+                //     } else {
+                //         console.log("Memo Table Created");
+                //     }
+                // });
+
+                // Java 기본 개념 DB
+                /**
+                 * ID          -> 메모 아이디 (AUTO_INCREMENT)
+                 * TITLE            -> 제목
+                 * CONTENTS         -> 내용
+                 * REGISTER_DATE    -> 등록 날짜 DATETIME
+                 */
+                // sqlQuery = "CREATE TABLE JAVA_MEMO_TB (" +
+                //     "ID SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+                //     "TITLE VARCHAR(800) NOT NULL," +
+                //     "CONTENTS VARCHAR(2000) NOT NULL," +
+                //     "REGISTER_DATE DATETIME" +
+                //     ")";
+                // // Java Memo Table Create
+                // con.query(sqlQuery, function (err, result) {
+                //     if (err) {
+                //         console.log("Create Java Table Error " + err);
+                //     } else {
+                //         console.log("Java Table Created");
+                //     }
+                // });
+
+                // DeepLinkBot DB
+                /**
+                 * ID          -> 메모 아이디 (AUTO_INCREMENT)
+                 * TITLE            -> 제목
+                 * CONTENTS         -> 내용
+                 * REGISTER_DATE    -> 등록 날짜 DATETIME
+                 */
+                // sqlQuery = "CREATE TABLE DEEP_LINK_TB (" +
+                //     "ID SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+                //     "TITLE VARCHAR(800) NOT NULL," +
+                //     "LINK VARCHAR(400) NOT NULL" +
+                //     ")";
+                // // Java Memo Table Create
+                // con.query(sqlQuery, function (err, result) {
+                //     if (err) {
+                //         console.log("Create DeepLinkBot Table Error " + err);
+                //     } else {
+                //         console.log("DeepLinkBot Table Created");
+                //     }
+                // });
+
 
                 // Pool에 Connection을 반납 
                 con.release();
@@ -192,11 +234,11 @@ module.exports = (function () {
          * @param {String []} params  Parameter ex.) '?'
          * @param {bool,rows} callBack  Query Callbakc Listener
          */
-         fetch: function (query, params, callBack) {
-            if(params == null) {
+        fetch: function (query, params, callBack) {
+            if (params == null) {
                 pool.getConnection(function (err, con) {
-                    if(err) {
-                        callBack(err,"DataBase Connection Error")
+                    if (err) {
+                        callBack(err, "DataBase Connection Error")
                         con.release();
                     } else {
                         con.query(query, function (err, rows) {
@@ -208,8 +250,8 @@ module.exports = (function () {
                 })
             } else {
                 pool.getConnection(function (err, con) {
-                    if(err) {
-                        callBack(err,"DataBase Connection Error")
+                    if (err) {
+                        callBack(err, "DataBase Connection Error")
                         con.release();
                     } else {
                         con.query(query, params, function (err, rows) {
