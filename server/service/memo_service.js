@@ -160,6 +160,28 @@ module.exports = (function () {
                 //     }
                 // });
 
+                // Android 기본 개념 DB
+                /**
+                 * ID          -> 메모 아이디 (AUTO_INCREMENT)
+                 * TITLE            -> 제목
+                 * CONTENTS         -> 내용
+                 * REGISTER_DATE    -> 등록 날짜 DATETIME
+                 */
+                sqlQuery = "CREATE TABLE JAVA_MEMO_TB (" +
+                    "ID SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+                    "TITLE VARCHAR(800) NOT NULL," +
+                    "CONTENTS VARCHAR(2000) NOT NULL," +
+                    "REGISTER_DATE DATETIME" +
+                    ")";
+                // Memo Table Create
+                con.query(sqlQuery, function (err, result) {
+                    if (err) {
+                        console.log("Create Memo Table Error " + err);
+                    } else {
+                        console.log("Memo Table Created");
+                    }
+                });
+
                 // Pool에 Connection을 반납 
                 con.release();
                 // 1시간 단위로 Ping 떄림.
@@ -190,11 +212,11 @@ module.exports = (function () {
          * @param {String []} params  Parameter ex.) '?'
          * @param {bool,rows} callBack  Query Callbakc Listener
          */
-         fetch: function (query, params, callBack) {
-            if(params == null) {
+        fetch: function (query, params, callBack) {
+            if (params == null) {
                 pool.getConnection(function (err, con) {
-                    if(err) {
-                        callBack(err,"DataBase Connection Error")
+                    if (err) {
+                        callBack(err, "DataBase Connection Error")
                         con.release();
                     } else {
                         con.query(query, function (err, rows) {
@@ -206,8 +228,8 @@ module.exports = (function () {
                 })
             } else {
                 pool.getConnection(function (err, con) {
-                    if(err) {
-                        callBack(err,"DataBase Connection Error")
+                    if (err) {
+                        callBack(err, "DataBase Connection Error")
                         con.release();
                     } else {
                         con.query(query, params, function (err, rows) {

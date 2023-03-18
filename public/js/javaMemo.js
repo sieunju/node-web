@@ -1,6 +1,6 @@
 window.onload = function () {
     console.log(window.location.pathname)
-    if (window.location.pathname == "/java") {
+    if (window.location.pathname == "/view/java") {
         fetchJavaMemo()
     } else {
         // 타이틀 엔터키 방지 로직
@@ -28,7 +28,7 @@ window.onload = function () {
 function fetchJavaMemo() {
     $.ajax({
         type: "GET",
-        url: "../api/java",
+        url: "/api/java",
         dataType: "JSON",
         success: function (json) {
 

@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
                 }).end();
             } else {
                 console.log("DB Success " + rows)
-                res.redirect('/java')
+                res.redirect('/view/java')
             }
         })
 
