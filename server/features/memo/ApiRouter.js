@@ -11,6 +11,7 @@ const utils = require('../../utils/commandUtil');
 
 /**
  * 메모 추가.
+ * EndPoint: /api/memo
  * loginKey,
  * body {
  *  tag             {우선 순위 값}
@@ -24,7 +25,7 @@ router.post('/', (req, res) => {
         console.log(req.body)
         const cmmInfo = utils.reqInfo(req);
         console.log('AddMemo LoginKey: ' + cmmInfo.loginKey)
-        repository.addMemo(cmmInfo.loginKey, req.body, function onMessage(err, rows) {
+        repository.post(cmmInfo.loginKey, req.body, function onMessage(err, rows) {
             if (err) {
                 console.log('Sql Error ' + err)
                 res.status(416).send({
@@ -42,7 +43,7 @@ router.post('/', (req, res) => {
                 }
                 // 웹인경우.
                 else {
-                    res.redirect('/memoList');
+                    res.redirect('/view/memo');
                 }
             }
         });
@@ -58,13 +59,13 @@ router.post('/', (req, res) => {
 
 /**
  * 사용자에 맞게 리스트 가져오기
+ * EndPoint: /api/memo
  * loginKey,
  * query {
  *  pageNo      {페이지 Index}
  *  sortOpt     {정렬 옵션}
  *  filterOpt   {필터 옵션}
  * }
- * EndPoint: /api/memo/contents/memo
  */
 router.get('/', (req, res) => {
     try {
@@ -80,9 +81,9 @@ router.get('/', (req, res) => {
             currentPage = Number(req.query.pageNo);
         }
 
-        repository.fetchMemo(loginKey, req.query, function onMessage(err, rows) {
+        repository.fetch(loginKey, req.query, function onMessage(err, rows) {
             if (err) {
-                utils.logE('GetMemo Sql Error LoginKey: ' + loginKey + '\t' + err)
+                console.log('GetMemo Sql Error LoginKey: ' + loginKey + '\t' + err)
 
                 res.status(416).send({
                     status: false,
@@ -92,7 +93,7 @@ router.get('/', (req, res) => {
             // Query 정상 동작 한경우.
             else {
 
-                utils.logD('GetMemo Success LoginKey: ' + loginKey + '\t Path' + req.url)
+                console.log('GetMemo Success LoginKey: ' + loginKey + '\t Path' + req.url)
                 // 옵션 세팅
                 // let options = {
                 //     "pageNo" : ++pageNo,
@@ -127,8 +128,6 @@ router.get('/', (req, res) => {
                         }
                     })
 
-                    // let values = Array.from(map.values())
-
                     let hasMore = true
                     if (map.size < 20) {
                         hasMore = false
@@ -142,6 +141,7 @@ router.get('/', (req, res) => {
                     }).end()
 
                 } catch (err) {
+                    console.log(' LoginKey: ' + loginKey + '\t' + err);
                     res.status(416).send({
                         status: false,
                         errMsg: 'Error ' + err
@@ -150,8 +150,7 @@ router.get('/', (req, res) => {
             }
         })
     } catch (err) {
-
-        utils.logE('FetchMemo Error LoginKey: ' + loginKey + '\t' + err);
+        console.log('FetchMemo Error LoginKey: ' + loginKey + '\t' + err);
         res.status(416).send({
             status: false,
             errMsg: 'Error ' + err
@@ -161,6 +160,7 @@ router.get('/', (req, res) => {
 
 /**
  * 메모 데이터 수정
+ * EndPoint: /api/memo
  * loginKey,
  * body {
  *  memoId,
@@ -172,8 +172,7 @@ router.get('/', (req, res) => {
 router.put('/', (req, res) => {
     try {
         const cmmInfo = utils.reqInfo(req)
-
-        repository.updateMemo(cmmInfo.loginKey, req.body, function onMessage(err) {
+        repository.update(cmmInfo.loginKey, req.body, function onMessage(err) {
             if (err) {
                 utils.logE('Update Memo SQL Fail LoginKey: ' + cmmInfo.loginKey + '\t ' + err)
                 // 앱인경우
@@ -208,12 +207,13 @@ router.put('/', (req, res) => {
 
 /**
  * 메모 삭제.
+ * EndPoint: /api/memo
  * 메모 아이디만 가지고 삭제.
  */
 router.delete('/', (req, res) => {
     try {
         const cmmInfo = utils.reqInfo(req)
-        repository.deleteMemo(cmmInfo.loginKey, req.query, function onMessage(err, rows) {
+        repository.delete(cmmInfo.loginKey, req.query, function onMessage(err, rows) {
             if (err) {
                 // 앱인경우
                 if (utils.isApp(cmmInfo)) {

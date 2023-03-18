@@ -1,5 +1,5 @@
 /**
- * BaseEndPoint /view/memo/contents/{...}
+ * /view/memo
  * 
  * Created by hmju
  */
@@ -9,20 +9,26 @@ const utils = require('../../utils/commandUtil');
 const router = express.Router();
 const PREFIX = 'memo/'
 
-// /view/memo
+/**
+ * EndPoint: /view/memo
+ */
 router.get('/', (req, res) => {
     utils.logD("Enter" + req.url);
     res.render(PREFIX + 'memoList.html');
     res.end();
 });
 
-// /view/memo/add
+/**
+ * EndPoint: /view/memo/add
+ */
 router.get('/add', (req, res) => {
     utils.logD("Enter" + req.url);
     res.render(PREFIX + 'addMemo.html');
 })
 
-// /view/memo/youtube
+/**
+ * EndPoint: /view/memo/youtube
+ */
 router.get('/youtube', (req, res) => {
     var videoId = req.query.id
     if (videoId != null) {

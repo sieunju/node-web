@@ -8,7 +8,7 @@ const repository = {
      * @param form {Login Form}
      * user_id, user_pw, user_nm
      */
-    postUser: function (form) {
+    post: function (form) {
         const loginKey = utils.enc(form.user_id);
         const sql = 'INSERT INTO ACT_USERS_TB (USER_NM,USER_ID,LOGIN_KEY,USER_PW,REGISTER_DATE)' +
             'VALUES(?,?,?,?,?)';
@@ -27,12 +27,11 @@ const repository = {
      * @param {String} loginKey 
      * @param {function} callback 
      */
-    fetchUser: function (loginKey, body, callback) {
+    fetch: function (loginKey, body, callback) {
         let userId = ''
         let userPw = ''
         const queryBuf = new StringBuffer();
         const paramsArr = new Array();
-
         if (utils.isEmpty(loginKey)) {
             userId = body.user_id
             userPw = body.user_pw

@@ -171,10 +171,10 @@ const isDir = (fs, path, callback) => {
                 return callback(null, true);
             if (err)
                 return callback(err);
-    
+
             return callback(null, !stats.isDirectory());
         });
-    } catch(err) {
+    } catch (err) {
         return callback(err)
     }
 
@@ -183,7 +183,7 @@ const isDir = (fs, path, callback) => {
 exports.checkDir = function (fs, path, callback) {
     isDir(fs, path, (err, isTrue) => {
         if (err) {
-            if(callback == null){
+            if (callback == null) {
                 return console.log(err);
             } else {
                 return callback(false, '에러!' + err);
@@ -191,7 +191,7 @@ exports.checkDir = function (fs, path, callback) {
         }
 
         if (!isTrue) {
-            if(callback == null){
+            if (callback == null) {
                 return console.log('이미 동일한 디렉토리가 있습니다. ' + path);
             } else {
                 return callback(true, '이미 동일한 디렉토리가 있습니다.' + path);
@@ -200,7 +200,7 @@ exports.checkDir = function (fs, path, callback) {
 
         fs.mkdir(path, (err) => {
             if (err) {
-                if(callback == null){
+                if (callback == null) {
                     return console.log(err);
                 } else {
                     return callback(false, err);
@@ -208,7 +208,7 @@ exports.checkDir = function (fs, path, callback) {
             }
 
             // 디렉토리 생성 완료.
-            if(callback == null){
+            if (callback == null) {
                 return console.log('디렉토리 생성 완료 ' + path);
             } else {
                 return callback(true, path);
@@ -217,12 +217,13 @@ exports.checkDir = function (fs, path, callback) {
     })
 }
 
-exports.isEmpty = function(value) {
-    if( value == '' || value == null || value == undefined || 
-    (value != null && 
-        typeof value == 'object' && 
-        !Object.keys(value).length)) {
-            return true
+exports.isEmpty = function (value) {
+    if (value == '' ||
+        value == null ||
+        value == undefined ||
+        value == 'undefined' ||
+        (value != null && typeof value == 'object' && !Object.keys(value).length)) {
+        return true
     } else {
         return false
     }
@@ -238,15 +239,15 @@ exports.getCurrentDate = function () {
     return year + '' + month + '' + day
 }
 
-exports.checkAuth = function (findAuthKey,callback) {
-    authModel.fetchAutkKey(function onMessage(err,rows) {
-        if(err) {
+exports.checkAuth = function (findAuthKey, callback) {
+    authModel.fetchAutkKey(function onMessage(err, rows) {
+        if (err) {
             callback(false)
             return
         }
         console.log(findAuthKey)
         rows.forEach(e => {
-            if(e.AUTH_KEY == findAuthKey) {
+            if (e.AUTH_KEY == findAuthKey) {
                 callback(true)
                 return
             }
