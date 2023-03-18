@@ -8,6 +8,9 @@ const router = express.Router();
 const repository = require('./Repository');
 const utils = require('../../utils/commandUtil')
 
+/**
+ * EndPoint: /api/deeplink
+ */
 router.post('/', (req, res) => {
     try {
         repository.addDeepLink(req.body, function onMessage(err, rows) {
@@ -15,7 +18,7 @@ router.post('/', (req, res) => {
                 res.status(404).end()
             } else {
                 console.log("DB Success " + rows)
-                res.redirect('/deepLink')
+                res.redirect('/view/deepLink')
             }
         })
     } catch (err) {
@@ -23,6 +26,9 @@ router.post('/', (req, res) => {
     }
 })
 
+/**
+ * EndPoint: /api/deeplink
+ */
 router.get('/', (req, res) => {
     try {
         repository.fetchDeepLink(function onMessage(err, rows) {

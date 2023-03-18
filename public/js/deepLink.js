@@ -1,7 +1,7 @@
 
 window.onload = function () {
     console.log(window.location.pathname)
-    if (window.location.pathname == "/deepLink") {
+    if (window.location.pathname == "/view/deepLink") {
         fetchDeepLink()
     } else {
 
@@ -15,7 +15,7 @@ window.onload = function () {
 function fetchDeepLink() {
     $.ajax({
         type: "GET",
-        url: "../api/deepLink",
+        url: "/api/deepLink",
         dataType: "JSON",
         success: function (json) {
 

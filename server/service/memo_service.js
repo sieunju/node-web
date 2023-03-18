@@ -160,27 +160,49 @@ module.exports = (function () {
                 //     }
                 // });
 
-                // Android 기본 개념 DB
+                // Java 기본 개념 DB
                 /**
                  * ID          -> 메모 아이디 (AUTO_INCREMENT)
                  * TITLE            -> 제목
                  * CONTENTS         -> 내용
                  * REGISTER_DATE    -> 등록 날짜 DATETIME
                  */
-                sqlQuery = "CREATE TABLE JAVA_MEMO_TB (" +
-                    "ID SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
-                    "TITLE VARCHAR(800) NOT NULL," +
-                    "CONTENTS VARCHAR(2000) NOT NULL," +
-                    "REGISTER_DATE DATETIME" +
-                    ")";
-                // Memo Table Create
-                con.query(sqlQuery, function (err, result) {
-                    if (err) {
-                        console.log("Create Memo Table Error " + err);
-                    } else {
-                        console.log("Memo Table Created");
-                    }
-                });
+                // sqlQuery = "CREATE TABLE JAVA_MEMO_TB (" +
+                //     "ID SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+                //     "TITLE VARCHAR(800) NOT NULL," +
+                //     "CONTENTS VARCHAR(2000) NOT NULL," +
+                //     "REGISTER_DATE DATETIME" +
+                //     ")";
+                // // Java Memo Table Create
+                // con.query(sqlQuery, function (err, result) {
+                //     if (err) {
+                //         console.log("Create Java Table Error " + err);
+                //     } else {
+                //         console.log("Java Table Created");
+                //     }
+                // });
+
+                // DeepLinkBot DB
+                /**
+                 * ID          -> 메모 아이디 (AUTO_INCREMENT)
+                 * TITLE            -> 제목
+                 * CONTENTS         -> 내용
+                 * REGISTER_DATE    -> 등록 날짜 DATETIME
+                 */
+                // sqlQuery = "CREATE TABLE DEEP_LINK_TB (" +
+                //     "ID SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+                //     "TITLE VARCHAR(800) NOT NULL," +
+                //     "LINK VARCHAR(400) NOT NULL" +
+                //     ")";
+                // // Java Memo Table Create
+                // con.query(sqlQuery, function (err, result) {
+                //     if (err) {
+                //         console.log("Create DeepLinkBot Table Error " + err);
+                //     } else {
+                //         console.log("DeepLinkBot Table Created");
+                //     }
+                // });
+
 
                 // Pool에 Connection을 반납 
                 con.release();
