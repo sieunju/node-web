@@ -14,16 +14,11 @@ const repository = {
         // [s] SQL Query
         const queryBuf = new StringBuffer();
         const paramsArr = new Array();
-        queryBuf.append('SELECT * FROM APP_VERSION_TB ');
-        queryBuf.append('WHERE OS_TYPE=? ')
+        queryBuf.append('SELECT * FROM APP_VERSION_TB WHERE OS_TYPE=?')
 
-        // 안드로이드인 경우.
-        if (appInfo.osType == 'AND') {
-            paramsArr.push('AND');
-        }
-        // iOS 인경우.
-        else if (appInfo.osType == 'iOS') {
-            paramsArr.push('iOS');
+        // 안드로이드 or iOS 인경우
+        if (appInfo.osType == 'AND' || appInfo.osType == 'iOS') {
+            paramsArr.push(appInfo.osType);
         }
         // 유효하지 않은 타입인경우.
         else {
