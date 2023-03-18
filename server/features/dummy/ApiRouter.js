@@ -3,8 +3,10 @@ const router = express.Router();
 const utils = require('../../utils/commandUtil');
 
 
-// EndPoint: /api/dummy/test
-// [S] TEST
+
+/**
+ * EndPoint: /view/dummy/test
+ */
 router.get('/test',(req, res) => {
     try {
         setTimeout(function () {
@@ -28,6 +30,9 @@ router.get('/test',(req, res) => {
     }
 })
 
+/**
+ * EndPoint: /view/dummy/test
+ */
 router.post('/test',(req,res) => {
     try {
         let ranBoolean = Math.random() < 0.7
@@ -46,6 +51,9 @@ router.post('/test',(req,res) => {
     }
 })
 
+/**
+ * EndPoint: /view/dummy/test/{cnt}
+ */
 router.get('/test/:cnt',(req,res) => {
     try {
         let cnt = req.params.cnt
@@ -64,16 +72,5 @@ router.get('/test/:cnt',(req,res) => {
         console.log("Error " + err)
     }
 })
-
-router.get('/daum/local',(req,res) => {
-    try {
-        res.render('demo.html')
-        res.end()
-    } catch(err) {
-        console.log("Error " + err)
-    }
-})
-
-// [E] TEST
 
 module.exports = router
