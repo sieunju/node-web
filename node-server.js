@@ -26,6 +26,7 @@ const uploadsFeature = require('./server/features/uploads/index')
 const javaFeature = require('./server/features/java/index')
 const memoFeature = require('./server/features/memo/index')
 const memoUploadFeature = require('./server/features/memo_upload/index')
+const tilFeature = require('./server/features/til/index')
 // [e] Module Features
 
 // 폴더 경로 설정.
@@ -64,6 +65,7 @@ app.use('/', uploadsFeature);
 app.use('/', javaFeature);
 app.use('/', memoFeature);
 app.use('/', memoUploadFeature);
+app.use('/', tilFeature);
 
 app.use(cookieParser(process.env.COOKIE_KEY)); // 쿠키 세팅      
 
