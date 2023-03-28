@@ -38,7 +38,6 @@ const utils = require('../../utils/commandUtil');
  *    description: "사용자 가입"
  *    tags: [account]
  *    requestBody:
- *      description: "아이디와 비밀번호를 입력하세요."
  *      required: true
  *      content:
  *        application/json:
@@ -107,8 +106,16 @@ router.post('/signUp', (req, res) => {
  *    summary: "로그인"
  *    description: "로그인을 시도합니다."
  *    tags: [account]
+ *    parameters:
+ *       - in: header
+ *         name: j-req-type
+ *         required: true
+ *         description: 요청하는 타입이 뭔지 설정합니다. ex.) AND, iOS
+ *         schema:
+ *           type: string
+ *      
+ * 
  *    requestBody:
- *      description: "아이디와 비밀번호를 입력하세요."
  *      required: true
  *      content:
  *        application/json:
