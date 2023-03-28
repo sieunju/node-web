@@ -16,6 +16,11 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors'); //다중 서버로 접속하게 해주는 기능을 제공, 다른 ip 로 다른서버에 접속
 const utils = require('./server/utils/commandUtil');
 
+// [s] Swagger Config
+const { swaggerUi, specs } = require("./swagger/swagger")
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs))
+// [e] Swagger Config
+
 // [s] Module Features
 const accountFeature = require('./server/features/account/index')
 const androidFeature = require('./server/features/android/index')
@@ -34,9 +39,11 @@ const view_dist = path.join(__dirname, '', '/public/views');
 const public = path.join(__dirname, '', '/public');
 
 // 서버가 읽을 수 있도록 HTML 의 위치를 정의해줍니다. 
-app.set('views', view_dist);
-app.use(express.static(public));                                    // Web Client Resource
-app.use('/resource', serveStatic(path.join(__dirname, 'resource')));  // Upload File Resource.
+app.set('views', view_dist)
+// Web Client Resource
+app.use(express.static(public))
+// Upload File Resource.
+app.use('/resource', serveStatic(path.join(__dirname, 'resource')))
 
 // 서버가 HTML 렌더링을 할 때, EJS엔진을 사용하도록 설정합니다. 
 app.set('view engine', 'ejs');

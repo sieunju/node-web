@@ -9,23 +9,77 @@ const repository = require('./Repository');
 const utils = require('../../utils/commandUtil');
 
 /**
- * ACCOUNT SIGN UP POST
- * EndPoint: /api/account/signUp
- * BODY SAMPLE: 
- * {
- *  "user_nm": "테스트",
- *  "user_id": "test",
- *  "user_pw": "1234"
- * }
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - user_id
+ *         - user_pw
+ *       properties:
+ *         user_id:
+ *           type: string
+ *           description: 사용자 아이디
+ *         user_pw:
+ *           type: string
+ *           description: 사용자 비번
+ *       example:
+ *         user_id: test
+ *         user_pw: 1234d
+ */
+
+/**
+ * @swagger
+ *
+ * /api/account/signUp:
+ *  post:
+ *    summary: "회원 가입"
+ *    description: "사용자 가입"
+ *    tags: [account]
+ *    requestBody:
+ *      description: "아이디와 비밀번호를 입력하세요."
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              user_id:
+ *                type: string
+ *                description: "회원가입할 사용자 아이디"
+ *              user_pw:
+ *                type: string
+ *                description: "회원가입할 사용자 비번"
+ *    responses:
+ *      200:
+ *        description: 성공!
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                status:
+ *                  type: boolean
+ *                msg:
+ *                  type: string
+ *                  example:
+ *                    [
+ *                      { "status": true, "msg": "SUCC" }
+ *                    ]
+ *      500:
+ *          description: 서버 꺼짐
  */
 router.post('/signUp', (req, res) => {
     const body = req.body;
+    console.log("BODY " + JSON.stringify(body))
     console.log("Sign Up ID\t" + body.user_id);
     console.log("Sign Up Pw\t" + body.user_pw);
     repository.post(body);
-    res.status(200);
-    res.write('Account Register Success');
-    res.end();
+    res.status(200).json({
+        status: true,
+        data: body
+    })
 });
 
 /**
@@ -43,6 +97,48 @@ router.post('/signUp', (req, res) => {
  * }
  * ERROR CODE:
  *  400
+ */
+
+/**
+ * @swagger
+ *
+ * /api/account/signIn:
+ *  post:
+ *    summary: "로그인"
+ *    description: "로그인을 시도합니다."
+ *    tags: [account]
+ *    requestBody:
+ *      description: "아이디와 비밀번호를 입력하세요."
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              user_id:
+ *                type: string
+ *                description: "사용자 아이디"
+ *              user_pw:
+ *                type: string
+ *                description: "사용자 비번"
+ *    responses:
+ *      200:
+ *        description: 성공!
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                status:
+ *                  type: boolean
+ *                msg:
+ *                  type: string
+ *                  example:
+ *                    [
+ *                      { "status": true, "msg": "SUCC" }
+ *                    ]
+ *      500:
+ *          description: 서버 꺼짐
  */
 router.post('/signIn', (req, res) => {
     try {

@@ -5,24 +5,26 @@
   "main": "web-server.js",
   "dependencies": {
     "app-module-path": "^2.2.0",
-    "app-root-path": "^3.0.0",
+    "app-root-path": "^3.1.0",
     "concat-stream": "^2.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "crypto-js": "^3.3.0",
-    "dotenv": "^8.2.0",
-    "ejs": "^3.1.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.1",
     "logger": "^0.0.1",
     "morgan": "^1.10.0",
-    "multer": "^1.4.2",
+    "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
-    "sequelize": "^5.22.3",
+    "sequelize": "^6.30.0",
     "session-file-store": "^1.5.0",
     "stringbuffer": "^1.0.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.2",
     "winston": "^3.3.3",
-    "winston-daily-rotate-file": "^4.5.0"
+    "winston-daily-rotate-file": "^4.7.1"
   },
   "scripts": {
     "start": "set NODE_EVN=.env && node web-server.js&"
