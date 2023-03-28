@@ -11,8 +11,10 @@ const options = {
         },
         servers: [
             {
-                url: "https://node.qtzz.synology.me",
-                url: "http://127.0.0.1:50048",
+                url: "http://127.0.0.1:10004"
+            },
+            {
+                url: "https://node.qtzz.synology.me"
             }
         ],
     },
