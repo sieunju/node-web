@@ -9,7 +9,52 @@ const repository = require('./Repository');
 const utils = require('../../utils/commandUtil');
 
 /**
- * EndPoint: /api/android/
+ * @swagger
+ *
+ * /api/android:
+ *  get:
+ *    summary: "안드로이드 기본 지식을 조회 합니다."
+ *    description: "지금까지 안드로이드 지식들을 정리한 데이터를 조회하는 API 입니다."
+ *    tags: [android]
+ * 
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                  status:
+ *                      type: boolean
+ *                      example: true
+ *                  list:
+ *                      type: array
+ *                      items:
+ *                          type: object
+ *                          properties:
+ *                              TITLE:
+ *                                  type: string
+ *                                  description: 제목
+ *                                  example: 안드로이드 4대 컴포넌트
+ *                              CONTENTS:
+ *                                  type: string
+ *                                  description: 내용
+ *                                  example: Activity, Service, BroadCast Receiver, ContentsProvider
+ *                          
+ *                      
+ *      416:
+ *          description: DB 조회 에러
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          status:
+ *                              type: boolean
+ *                              example: false
+ *                          errMsg:
+ *                              type: string
+ *                              example: Error
  */
 router.get('/', (req, res) => {
     try {
