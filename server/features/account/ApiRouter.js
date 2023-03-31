@@ -111,23 +111,6 @@ router.post('/signUp', (req, res) => {
 });
 
 /**
- * ACCOUNT SIGN_IN: POST
- * EndPoint: /api/account/signIn
- * BODY SAMPLE: 
- * {
- *  "user_id": "test",
- *  "user_pw": "1234"
- * }
- * or 
- * HEADER 
- * {
- *  "login_key" : unique Token
- * }
- * ERROR CODE:
- *  400
- */
-
-/**
  * @swagger
  *
  * /api/account/signIn:
