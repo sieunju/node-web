@@ -125,6 +125,7 @@ router.post('/signUp', (req, res) => {
  *         description: 요청하는 타입이 뭔지 설정합니다. ex.) AND, iOS
  *         schema:
  *           type: string
+ *           enum: [AND, iOS]
  *           example: AND
  * 
  *    requestBody:
