@@ -9,7 +9,34 @@ const repository = require('./Repository');
 const utils = require('../../utils/commandUtil')
 
 /**
- * EndPoint: /api/deeplink
+ * @swagger
+ *
+ * /api/deeplink:
+ *  post:
+ *    summary: "딥링크 추가합니다."
+ *    tags: [deeplink]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                type: string
+ *                description: "딥링크 제목"
+ *              link:
+ *                type: string
+ *                description: "딥링크 URL"
+ *    responses:
+ *      200:
+ *        content:
+ *          text/html:
+ *              schema:
+ *                  type: link
+ *                  example: /view/deepLink
+ *      404:
+ *          description: Error
  */
 router.post('/', (req, res) => {
     try {
@@ -27,7 +54,38 @@ router.post('/', (req, res) => {
 })
 
 /**
- * EndPoint: /api/deeplink
+ * @swagger
+ *
+ * /api/deeplink:
+ *  get:
+ *    summary: "딥링크 조회합니다."
+ *    tags: [deeplink]
+ * 
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                  status:
+ *                      type: boolean
+ *                      example: true
+ *                  list:
+ *                      type: array
+ *                      items:
+ *                          type: object
+ *                          properties:
+ *                              TITLE:
+ *                                  type: string
+ *                                  description: 딥링크
+ *                                  example: 네이버 이동
+ *                              LINK:
+ *                                  type: string
+ *                                  description: URL
+ *                                  example: https://www.naver.com
+ *      404:
+ *          description: Error
  */
 router.get('/', (req, res) => {
     try {
