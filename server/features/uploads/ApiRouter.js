@@ -70,11 +70,47 @@ const router = express.Router();
 const repository = require('./Repository')
 
 /**
- * 파일 업로드 EndPoint: /api/uploads
- * Multipart  Array
- * {
- *  name: files
- * } 
+ * @swagger
+ *
+ * /api/uploads:
+ *  post:
+ *    summary: "파일 업로드"
+ *    tags: [UPLOADS]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *          multipart/form-data:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      files:
+ *                          type: array
+ *                          items:
+ *                              type: string
+ *                              format: binary
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                status:
+ *                  type: boolean
+ *                  example: true
+ *                pathList:
+ *                  type: array
+ *                  items:
+ *                      type: object
+ *                      properties:
+ *                          id:
+ *                              type: int
+ *                              example: 3
+ *                          path:
+ *                              type: string
+ *                              example: /resource/img/33.jpg
+ *      416:
+ *          description: DB 에러
  */
 router.post('/', upload.array('files'), (req, res) => {
     try {
