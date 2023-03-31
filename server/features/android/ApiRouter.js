@@ -39,7 +39,7 @@ const utils = require('../../utils/commandUtil');
  *                              CONTENTS:
  *                                  type: string
  *                                  description: 내용
- *                                  example: Activity, Service, BroadCast Receiver, ContentsProvider
+ *                                  example: Activity, Service, BroadCast Receiver, ContentProvider
  *                          
  *                      
  *      416:
@@ -83,8 +83,47 @@ router.get('/', (req, res) => {
 })
 
 /**
- * 안드로이드 기본 개념 관련 메모 추가.
- * EndPoint: /api/android/
+ * @swagger
+ *
+ * /api/android:
+ *  post:
+ *    summary: "안드로이드 기본 개념 관련 메모 추가"
+ *    tags: [android]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                  type: string
+ *                  example: 안드로이드 4대 컴포넌트
+ *              contents:
+ *                  type: string
+ *                  example: Activity, Service, BroadCast Receiver, ContentProvider
+ *    responses:
+ *      200:
+ *        content:
+ *          text/html:
+ *              schema:
+ *                  type: link
+ *                  example: /view/android
+ *                          
+ *                      
+ *      416:
+ *          description: DB 조회 에러
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          status:
+ *                              type: boolean
+ *                              example: false
+ *                          errMsg:
+ *                              type: string
+ *                              example: Error
  */
 router.post('/', (req, res) => {
     try {
