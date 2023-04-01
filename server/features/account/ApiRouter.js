@@ -21,13 +21,51 @@ const utils = require('../../utils/commandUtil');
  *         user_id:
  *           type: string
  *           description: 사용자 아이디
+ *           example: test
  *         user_pw:
  *           type: string
  *           description: 사용자 비번
- *       example:
- *         user_id: test
- *         user_pw: 1234d
+ *           example: 12345
  */
+
+// /**
+//  * @swagger
+//  *
+//  * /api/account/signUp:
+//  *  post:
+//  *    summary: "회원 가입"
+//  *    description: "사용자 가입"
+//  *    tags: [account]
+//  *    requestBody:
+//  *      required: true
+//  *      content:
+//  *        application/json:
+//  *          schema:
+//  *            type: object
+//  *            properties:
+//  *              user_id:
+//  *                type: string
+//  *                description: "회원가입할 사용자 아이디"
+//  *              user_pw:
+//  *                type: string
+//  *                description: "회원가입할 사용자 비번"
+//  *    responses:
+//  *      200:
+//  *        description: 회원 가입 성공
+//  *        content:
+//  *          application/json:
+//  *            schema:
+//  *              type: object
+//  *              properties:
+//  *                status:
+//  *                  type: boolean
+//  *                  example: true
+//  *                msg:
+//  *                  type: string
+//  *                  example: "SUCC"
+//  *      500:
+//  *          description: 서버 꺼짐
+//  */
 
 /**
  * @swagger
@@ -42,17 +80,10 @@ const utils = require('../../utils/commandUtil');
  *      content:
  *        application/json:
  *          schema:
- *            type: object
- *            properties:
- *              user_id:
- *                type: string
- *                description: "회원가입할 사용자 아이디"
- *              user_pw:
- *                type: string
- *                description: "회원가입할 사용자 비번"
+ *            $ref: '#/components/schemas/User'
  *    responses:
  *      200:
- *        description: 성공!
+ *        description: 회원 가입 성공
  *        content:
  *          application/json:
  *            schema:
@@ -60,12 +91,10 @@ const utils = require('../../utils/commandUtil');
  *              properties:
  *                status:
  *                  type: boolean
+ *                  example: true
  *                msg:
  *                  type: string
- *                  example:
- *                    [
- *                      { "status": true, "msg": "SUCC" }
- *                    ]
+ *                  example: "SUCC"
  *      500:
  *          description: 서버 꺼짐
  */
@@ -82,23 +111,6 @@ router.post('/signUp', (req, res) => {
 });
 
 /**
- * ACCOUNT SIGN_IN: POST
- * EndPoint: /api/account/signIn
- * BODY SAMPLE: 
- * {
- *  "user_id": "test",
- *  "user_pw": "1234"
- * }
- * or 
- * HEADER 
- * {
- *  "login_key" : unique Token
- * }
- * ERROR CODE:
- *  400
- */
-
-/**
  * @swagger
  *
  * /api/account/signIn:
@@ -113,21 +125,16 @@ router.post('/signUp', (req, res) => {
  *         description: 요청하는 타입이 뭔지 설정합니다. ex.) AND, iOS
  *         schema:
  *           type: string
- *      
+ *           enum: [AND, iOS]
+ *           example: AND
  * 
  *    requestBody:
  *      required: true
  *      content:
  *        application/json:
  *          schema:
- *            type: object
- *            properties:
- *              user_id:
- *                type: string
- *                description: "사용자 아이디"
- *              user_pw:
- *                type: string
- *                description: "사용자 비번"
+ *            $ref: '#/components/schemas/User'
+ * 
  *    responses:
  *      200:
  *        description: 성공!
@@ -138,12 +145,16 @@ router.post('/signUp', (req, res) => {
  *              properties:
  *                status:
  *                  type: boolean
- *                msg:
+ *                  example: true
+ *                user_nm:
  *                  type: string
- *                  example:
- *                    [
- *                      { "status": true, "msg": "SUCC" }
- *                    ]
+ *                  example: userName
+ *                res_path:
+ *                  type: string
+ *                  example: https://127.0.0.1:10004/resource
+ *                login_key:
+ *                  type: string
+ *                  example: login_token
  *      500:
  *          description: 서버 꺼짐
  */
@@ -194,11 +205,20 @@ router.post('/signIn', (req, res) => {
 })
 
 /**
- * EndPoint: /api/account/timeout
+ * @swagger
+ *
+ * /api/account/timeout:
+ *  get:
+ *    summary: "테스트용 타임아웃"
+ *    description: "아무런 Response 를 전달하지 않습니다."
+ *    tags: [account]
+ *    responses:
+ *      408:
+ *          description: HTTP Timeout
  */
 router.get("/timeout", (req, res) => {
     console.log("Api Time Out")
-    setTimeout(function(){
+    setTimeout(function () {
 
     }, 10_000)
 })

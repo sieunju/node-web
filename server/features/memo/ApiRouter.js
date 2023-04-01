@@ -8,16 +8,74 @@ const router = express.Router();
 const repository = require('./Repository');
 const utils = require('../../utils/commandUtil');
 
-
 /**
- * 메모 추가.
- * EndPoint: /api/memo
- * loginKey,
- * body {
- *  tag             {우선 순위 값}
- *  title           {제목}
- *  contents        {내용}
- * }
+ * @swagger
+ *
+ * /api/memo:
+ *  post:
+ *    summary: "메모 추가"
+ *    description: 우선순위 Tag (1~7) 을 지정해서 메모를 추가합니다.
+ *    tags: [memo]
+ *    parameters:
+ *       - in: header
+ *         name: j-req-type
+ *         required: true
+ *         description: 요청하는 타입이 뭔지 설정합니다. ex.) AND, iOS
+ *         schema:
+ *           type: string
+ *           enum: [AND, iOS]
+ *           example: AND
+ *       - in: header
+ *         name: j-req-login-key
+ *         required: true
+ *         description: 로그인 키값
+ *         schema:
+ *           type: string
+ *           example: login_token
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              tag:
+ *                  type: int
+ *                  example: 1
+ *              title:
+ *                  type: string
+ *                  example: 메모 추가
+ *              contents:
+ *                  type: string
+ *                  example: 메모 내용
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      status:
+ *                          type: boolean
+ *                          example: true
+ *                      manageNo:
+ *                          type: string
+ *                          example: 3
+ *                          
+ *                      
+ *      416:
+ *          description: DB 조회 에러
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          status:
+ *                              type: boolean
+ *                              example: false
+ *                          errMsg:
+ *                              type: string
+ *                              example: Error
  */
 router.post('/', (req, res) => {
     try {
@@ -58,14 +116,120 @@ router.post('/', (req, res) => {
 });
 
 /**
- * 사용자에 맞게 리스트 가져오기
- * EndPoint: /api/memo
- * loginKey,
- * query {
- *  pageNo      {페이지 Index}
- *  sortOpt     {정렬 옵션}
- *  filterOpt   {필터 옵션}
- * }
+ * @swagger
+ *
+ * /api/memo:
+ *  get:
+ *    summary: "메모 조회"
+ *    tags: [memo]
+ *    parameters:
+ *       - in: header
+ *         name: j-req-type
+ *         required: true
+ *         description: 요청하는 타입이 뭔지 설정합니다. ex.) AND, iOS
+ *         schema:
+ *           type: string
+ *           enum: [AND, iOS]
+ *           example: AND
+ * 
+ *       - in: header
+ *         name: j-req-login-key
+ *         required: true
+ *         description: 로그인 키값
+ *         schema:
+ *           type: string
+ *           example: login_token
+ * 
+ *       - in: query
+ *         name: pageNo
+ *         required: false
+ *         description: 페이지 Index
+ *         schema:
+ *           type: int
+ *           example: 1
+ * 
+ *       - in: query
+ *         name: sortOpt
+ *         required: false
+ *         description: 정렬 옵션
+ *         schema:
+ *           type: string
+ *           enum: [ASC, DESC]
+ *           example: ASC
+ * 
+ *       - in: query
+ *         name: filterTag
+ *         required: false
+ *         description: 필터 옵션
+ *         schema:
+ *           type: int
+ *           enum: [100,101,102,103,104,105,106]
+ *           example: 100
+ * 
+ *       - in: query
+ *         name: keyword
+ *         required: false
+ *         description: 검색어
+ *         schema:
+ *           type: string
+ *           example: 메모
+ * 
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      status:
+ *                          type: boolean
+ *                          example: true
+ *                      dataList:
+ *                          type: array
+ *                          items:
+ *                              type: object
+ *                              properties:
+ *                                  manageNo:
+ *                                      type: int
+ *                                      example: 1
+ *                                  tag:
+ *                                      type: int
+ *                                      example: 3
+ *                                  title:
+ *                                      type: string
+ *                                      example: 메모 제목
+ *                                  contents:
+ *                                      type: string
+ *                                      example: 메모 내용
+ *                                  fileList:
+ *                                      type: array
+ *                                      items:
+ *                                          type: object
+ *                                          properties:
+ *                                              manageNo:
+ *                                                  type: int
+ *                                                  example: 2
+ *                                              path:
+ *                                                  type: string
+ *                                                  example: /resource/img/1.png
+ *                                  regDtm:
+ *                                      type: date-time
+ *                                      example: 2023-03-31 16:05:35 (YYYY-MM-DD HH:mm:ss)
+ *                          
+ *                      
+ *      416:
+ *          description: DB 조회 에러
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          status:
+ *                              type: boolean
+ *                              example: false
+ *                          errMsg:
+ *                              type: string
+ *                              example: Error
  */
 router.get('/', (req, res) => {
     try {
@@ -159,15 +323,73 @@ router.get('/', (req, res) => {
 });
 
 /**
- * 메모 데이터 수정
- * EndPoint: /api/memo
- * loginKey,
- * body {
- *  memoId,
- *  tag,
- *  title,
- *  contents
- * }
+ * @swagger
+ *
+ * /api/memo:
+ *  put:
+ *    summary: 메모 수정
+ *    description: 메모를 수정합니다.
+ *    tags: [memo]
+ *    parameters:
+ *       - in: header
+ *         name: j-req-type
+ *         required: true
+ *         description: 요청하는 타입이 뭔지 설정합니다. ex.) AND, iOS
+ *         schema:
+ *           type: string
+ *           enum: [AND, iOS]
+ *           example: AND
+ *       - in: header
+ *         name: j-req-login-key
+ *         required: true
+ *         description: 로그인 키값
+ *         schema:
+ *           type: string
+ *           example: login_token
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              memoId:
+ *                  type: int
+ *                  example: 3
+ *              tag:
+ *                  type: int
+ *                  example: 1
+ *              title:
+ *                  type: string
+ *                  example: 메모 추가
+ *              contents:
+ *                  type: string
+ *                  example: 메모 내용
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      status:
+ *                          type: boolean
+ *                          example: true
+ *                          
+ *                      
+ *      416:
+ *          description: DB 조회 에러
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          status:
+ *                              type: boolean
+ *                              example: false
+ *                          errMsg:
+ *                              type: string
+ *                              example: Error
  */
 router.put('/', (req, res) => {
     try {
@@ -206,14 +428,66 @@ router.put('/', (req, res) => {
 });
 
 /**
- * 메모 삭제.
- * EndPoint: /api/memo
- * 메모 아이디만 가지고 삭제.
+ * @swagger
+ *
+ * /api/memo/{id}:
+ *  delete:
+ *    summary: 메모 삭제
+ *    description: 메모를 수정합니다.
+ *    tags: [memo]
+ *    parameters:
+ *       - in: header
+ *         name: j-req-type
+ *         required: true
+ *         description: 요청하는 타입이 뭔지 설정합니다. ex.) AND, iOS
+ *         schema:
+ *           type: string
+ *           enum: [AND, iOS]
+ *           example: AND
+ *       - in: header
+ *         name: j-req-login-key
+ *         required: true
+ *         description: 로그인 키값
+ *         schema:
+ *           type: string
+ *           example: login_token
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: 삭제할 메모 아이디
+ * 
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      status:
+ *                          type: boolean
+ *                          example: true
+ *                      msg:
+ *                          type: string
+ *                          example: 메모가 정상적으로 삭제 되었습니다.
+ *                          
+ *      400:
+ *          description: DB 조회 에러
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          status:
+ *                              type: boolean
+ *                              example: false
+ *                          errMsg:
+ *                              type: string
+ *                              example: Error
  */
-router.delete('/', (req, res) => {
+router.delete('/:id', (req, res) => {
     try {
         const cmmInfo = utils.reqInfo(req)
-        repository.delete(cmmInfo.loginKey, req.query, function onMessage(err, rows) {
+        repository.delete(cmmInfo.loginKey, req, function onMessage(err, rows) {
             if (err) {
                 // 앱인경우
                 if (utils.isApp(cmmInfo)) {
@@ -242,11 +516,6 @@ router.delete('/', (req, res) => {
             errMsg: err
         }).end();
     }
-})
-
-router.get('/searchKeyword', (req, res) => {
-    console.log(req.url, "Memo KeyWord ");
-    const cmmInfo = utils.reqInfo(req);
 })
 
 module.exports = router
