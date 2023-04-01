@@ -12,7 +12,7 @@ const utils = require('../../../utils/commandUtil')
  *  get:
  *    summary: TIL 전용 API 테스트 입니다.
  *    description: JSend 형식으로 리턴합니다.
- *    tags: [TIL_JSEND]
+ *    tags: [TIL, TIL_JSEND]
  * 
  *    responses:
  *      200:
@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
  *  get:
  *    summary: TIL 전용 API 테스트 입니다.
  *    description: JSend 형식으로 리턴합니다.
- *    tags: [TIL_JSEND]
+ *    tags: [TIL, TIL_JSEND]
  * 
  *    responses:
  *      200:
@@ -103,7 +103,7 @@ router.get('/meta', (req, res) => {
  *  get:
  *    summary: TIL 전용 API 테스트 입니다.
  *    description: JSend 형식으로 리턴합니다.
- *    tags: [TIL_JSEND]
+ *    tags: [TIL, TIL_JSEND]
  * 
  *    responses:
  *      200:
@@ -143,7 +143,7 @@ router.get('/list', (req, res) => {
  *  get:
  *    summary: TIL 전용 API 테스트 입니다.
  *    description: JSend 형식으로 리턴합니다.
- *    tags: [TIL_JSEND]
+ *    tags: [TIL, TIL_JSEND]
  * 
  *    responses:
  *      200:
@@ -197,7 +197,7 @@ router.get('/list/meta', (req, res) => {
  *  get:
  *    summary: TIL 전용 API 테스트 입니다.
  *    description: 랜덤 에러를 리턴합니다.
- *    tags: [TIL_JSEND]
+ *    tags: [TIL, TIL_JSEND]
  * 
  *    responses:
  *      200:

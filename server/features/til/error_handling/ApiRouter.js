@@ -12,7 +12,7 @@ const utils = require('../../../utils/commandUtil')
  *  get:
  *    summary: "TIL 전용 API 테스트 입니다."
  *    description: "HTTP 505 에러를 리턴합니다.."
- *    tags: [TIL_ERROR]
+ *    tags: [TIL, TIL_ERROR]
  *    responses:
  *      505:
  *        content:
@@ -42,7 +42,7 @@ router.get('/505', (req, res) => {
  *  post:
  *    summary: "TIL 전용 API 테스트 입니다."
  *    description: "HTTP 505 에러를 리턴합니다."
- *    tags: [TIL_ERROR]
+ *    tags: [TIL, TIL_ERROR]
  *    responses:
  *      505:
  *        content:
@@ -72,7 +72,7 @@ router.post('/505', (req, res) => {
  *  post:
  *    summary: "TIL 전용 API 테스트 입니다."
  *    description: "HTTP 505 에러를 리턴합니다."
- *    tags: [TIL_ERROR]
+ *    tags: [TIL, TIL_ERROR]
  *    responses:
  *      505:
  *        content:
@@ -102,7 +102,7 @@ router.post('/404', (req, res) => {
  *  get:
  *    summary: "TIL 전용 API 테스트 입니다."
  *    description: "HTTP 404 에러를 리턴합니다"
- *    tags: [TIL_ERROR]
+ *    tags: [TIL, TIL_ERROR]
  *    responses:
  *      404:
  *        content:
