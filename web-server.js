@@ -13,7 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const serveStatic = require('serve-static');      //특정 폴더의 파일들을 특정 패스로 접근할 수 있도록 열어주는 역할
 const cookieParser = require('cookie-parser');
-const cors = require('cors'); //다중 서버로 접속하게 해주는 기능을 제공, 다른 ip 로 다른서버에 접속
+const cors = require('cors'); // CORS 설정
 const utils = require('./server/utils/commandUtil');
 
 // [s] Swagger Config
@@ -38,6 +38,7 @@ const tilFeature = require('./server/features/til/index')
 const view_dist = path.join(__dirname, '', '/public/views');
 const public = path.join(__dirname, '', '/public');
 
+app.use(cors());
 // 서버가 읽을 수 있도록 HTML 의 위치를 정의해줍니다. 
 app.set('views', view_dist)
 // Web Client Resource
@@ -83,10 +84,6 @@ app.use(function (req, res, next) {
     next();
   }));
 });
-
-
-// 다중 접속을 위한 미들 웨어
-app.use(cors());
 
 // 세션 사용
 app.use(session({
