@@ -38,6 +38,7 @@ const tilFeature = require('./server/features/til/index')
 const view_dist = path.join(__dirname, '', '/public/views');
 const public = path.join(__dirname, '', '/public');
 
+// api 호출하기전 맨 첨에 설정되어야 한다 node express pipeline 참고
 app.use(cors());
 // 서버가 읽을 수 있도록 HTML 의 위치를 정의해줍니다. 
 app.set('views', view_dist)
