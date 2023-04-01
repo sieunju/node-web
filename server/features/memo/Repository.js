@@ -64,25 +64,25 @@ const repository = {
         if (utils.isValidInt(query.filterTag)) {
             let filterTag = -1
             switch (query.filterTag) {
-                case 100: // 빨강 우선순위 1
+                case '100': // 빨강 우선순위 1
                     filterTag = 1
                     break
-                case 101: // 주황 우선순위 2
+                case '101': // 주황 우선순위 2
                     filterTag = 2
                     break
-                case 102: // 노랑 우선순위 3
+                case '102': // 노랑 우선순위 3
                     filterTag = 3
                     break
-                case 103: // 초록 우선순위 4
+                case '103': // 초록 우선순위 4
                     filterTag = 4
                     break
-                case 104: // 파랑 우선순위 5
+                case '104': // 파랑 우선순위 5
                     filterTag = 5
                     break;
-                case 105: // 보라 우선순위 6
+                case '105': // 보라 우선순위 6
                     filterTag = 6
                     break;
-                case 106: // 회색 우선 순위 7
+                case '106': // 회색 우선 순위 7
                     filterTag = 7
                     break;
 
@@ -91,18 +91,20 @@ const repository = {
                 queryBuf.append('AND TAG=? ')
                 paramsArr.push(utils.decode_utf8(filterTag))
             }
-            console.log("Filter Opt " + utils.decode_utf8(filterTag));
+            console.log("Filter Opt " + filterTag);
         }
 
         // 검색어가 있는 경우.
-        if (utils.isValidString(query.keyWord)) {
+        if (utils.isValidString(query.keyword)) {
             queryBuf.append('AND TITLE LIKE ? ');
-            paramsArr.push('%' + utils.decode_utf8(query.keyWord) + '%');
+            paramsArr.push('%' + utils.decode_utf8(query.keyword) + '%');
         }
 
         // 정렬 옵션이 있는 경우
         if (utils.isValidString(query.sortOpt)) {
-            console.log("Sort Opt " + utils.decode_utf8(query.sortOpt));
+            queryBuf.append('ORDER BY TAG ')
+            queryBuf.append(utils.decode_utf8(query.sortOpt))
+            queryBuf.append(" ")
         } else {
             // ASC 오름 차순 오른쪽으로 갈수록 커진다.
             queryBuf.append('ORDER BY TAG ASC ');
@@ -116,8 +118,8 @@ const repository = {
         queryBuf.append('AS M ')
         queryBuf.append('LEFT JOIN MEMO_FILE_TB AS F ON (M.MEMO_ID = F.MEMO_ID)')
         // [e] SQL Query
-        // console.log('Query ' + queryBuf.toString())
-        // console.log('QUery Params ' + paramsArr)
+        console.log('Query ' + queryBuf.toString())
+        console.log('QUery Params ' + paramsArr)
         localService.fetch(queryBuf.toString(), paramsArr, callBack);
     },
 
@@ -145,14 +147,14 @@ const repository = {
      * @param {Query} Query  memo_id
      * @param {listener} callBack DB Query 호출후 Listener
      */
-    delete: function (loginKey, query, callBack) {
+    delete: function (loginKey, req, callBack) {
         // 데이터 유효성 검사.
-        if (query.memo_id == null) return
+        if (req.params.id == null) return
         const userId = utils.dec(loginKey);
 
         const sql = 'DELETE FROM MEMO_TB WHERE MEMO_ID=? AND USER_ID=?'
         const paramsArr = new Array();
-        paramsArr.push(query.memo_id)
+        paramsArr.push(req.params.id)
         paramsArr.push(userId)
         localService.fetch(sql, paramsArr, callBack)
     },
