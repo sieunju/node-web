@@ -12,7 +12,7 @@ const utils = require('../../../utils/commandUtil')
  *  get:
  *    summary: "TIL 전용 API 테스트 입니다."
  *    description: "랜덤 상품 목록 조회 합니다."
- *    tags: [TIL_GOODS]
+ *    tags: [TIL, TIL_GOODS]
  *    parameters:
  *      - in: query
  *        name: pageNo
@@ -117,7 +117,7 @@ router.get('/', (req, res) => {
  *  post:
  *    summary: "TIL 전용 API 테스트 입니다."
  *    description: "상품 좋아요 추가 입니다."
- *    tags: [TIL_GOODS]
+ *    tags: [TIL, TIL_GOODS]
  *    requestBody:
  *      required: true
  *      content:
@@ -170,7 +170,7 @@ router.post('/like', (req, res) => {
  *  delete:
  *    summary: "TIL 전용 API 테스트 입니다."
  *    description: "상품 좋아요 삭제 입니다."
- *    tags: [TIL_GOODS]
+ *    tags: [TIL, TIL_GOODS]
  *    parameters:
  *       - in: path
  *         name: id
@@ -221,7 +221,7 @@ router.delete('/like/:id', (req, res) => {
  *  put:
  *    summary: "TIL 전용 API 테스트 입니다."
  *    description: "PUT 테스트 입니다."
- *    tags: [TIL_GOODS]
+ *    tags: [TIL, TIL_GOODS]
  *    requestBody:
  *      required: true
  *      content:

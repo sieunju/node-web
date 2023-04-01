@@ -12,7 +12,7 @@ const utils = require('../../../utils/commandUtil')
  *  post:
  *    summary: "TIL 전용 API 테스트 입니다."
  *    description: "Auth Token 갱신"
- *    tags: [TIL_AUTH]
+ *    tags: [TIL, TIL_AUTH]
  *    parameters:
  *        - in: header
  *          name: Token
@@ -62,7 +62,7 @@ router.post('/refresh', (req, res) => {
  *  post:
  *    summary: "TIL 전용 API 테스트 입니다."
  *    description: "만료되는 토큰 발급 받기 입니다."
- *    tags: [TIL_AUTH]
+ *    tags: [TIL, TIL_AUTH]
  *    responses:
  *      200:
  *        content:
@@ -103,7 +103,7 @@ router.post('/expired', (req, res) => {
  *  get:
  *    summary: "TIL 전용 API 테스트 입니다."
  *    description: "만료되는 토큰 발급 받기 입니다."
- *    tags: [TIL_AUTH]
+ *    tags: [TIL, TIL_AUTH]
  *    responses:
  *      200:
  *        content:
