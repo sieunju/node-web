@@ -110,6 +110,7 @@ utils.checkDir(fs, process.env.UPLOAD_ROOT, function (isSuccess, msg) {
     utils.checkDir(fs, process.env.UPLOAD_IMG, null);
     utils.checkDir(fs, process.env.UPLOAD_TXT, null);
     utils.checkDir(fs, process.env.UPLOAD_ETC, null);
+    utils.checkDir(fs, process.env.UPLOAD_AUDIO, null);
   } else {
     console.log("실패! " + msg);
   }
