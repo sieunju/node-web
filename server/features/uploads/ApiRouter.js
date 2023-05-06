@@ -15,10 +15,11 @@ const filter = (req, file, callback) => {
     if (type.startsWith('image') ||
         type.startsWith('video') ||
         type.startsWith('text') ||
-        type.startsWith('application')) {
+        type.startsWith('application') || 
+        type.startsWith('audio')) {
         callback(null, true);
     } else {
-        callback('Uploadable files are img, video, text, and application.', false);
+        callback('Uploadable files are img, video, text, audio, and application.', false);
     }
 }
 
@@ -47,6 +48,8 @@ const storage = multer.diskStorage({
             dateDir(process.env.UPLOAD_VIDEO + '/' + currDate, callback)
         } else if (type.startsWith('text')) {
             dateDir(process.env.UPLOAD_TXT + '/' + currDate, callback)
+        } else if(type.startsWith('audio')) {
+            dateDir(process.env.UPLOAD_AUDIO + '/' + currDate, callback)
         } else {
             // 이외 케이스
             dateDir(process.env.UPLOAD_ETC + '/' + currDate, callback)

@@ -31,12 +31,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.qtzz.synology.me/hmju/node-memolist.git"
+    "url": "https://github.com/sieunju/node-web/issues"
   },
   "author": "sieun Ju",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.qtzz.synology.me/hmju/node-memolist/-/issues"
+    "url": "https://github.com/sieunju/node-web/issues"
   },
-  "homepage": "https://gitlab.qtzz.synology.me/hmju/node-memolist"
+  "homepage": "https://github.com/sieunju/node-web"
 }
