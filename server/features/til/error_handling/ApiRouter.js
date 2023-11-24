@@ -1,9 +1,9 @@
 /**
  * 에러 관련 코드 라우터
  */
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const utils = require('../../../utils/commandUtil')
+const utils = require("../../../utils/commandUtil");
 
 /**
  * @swagger
@@ -26,14 +26,17 @@ const utils = require('../../../utils/commandUtil')
  *                  message:
  *                      type: string
  *                      example: 505 Get 방식의 Error 입니다.
- * 
+ *
  */
-router.get('/505', (req, res) => {
-    res.status(505).send({
-        status: false,
-        message: "505 Get 방식의 Error 입니다."
-    }).end()
-})
+router.get("/505", (req, res) => {
+  res
+    .status(505)
+    .send({
+      status: false,
+      message: "505 Get 방식의 Error 입니다.",
+    })
+    .end();
+});
 
 /**
  * @swagger
@@ -56,14 +59,17 @@ router.get('/505', (req, res) => {
  *                  message:
  *                      type: string
  *                      example: 505 Post 방식의 Error 입니다.
- * 
+ *
  */
-router.post('/505', (req, res) => {
-    res.status(505).send({
-        status: false,
-        message: "505 Post 방식의 Error 입니다."
-    }).end()
-})
+router.post("/505", (req, res) => {
+  res
+    .status(505)
+    .send({
+      status: false,
+      message: "505 Post 방식의 Error 입니다.",
+    })
+    .end();
+});
 
 /**
  * @swagger
@@ -86,14 +92,17 @@ router.post('/505', (req, res) => {
  *                  message:
  *                      type: string
  *                      example: 404 Post 방식의 Error 입니다.
- * 
+ *
  */
-router.post('/404', (req, res) => {
-    res.status(404).send({
-        status: false,
-        message: "404 Post 방식의 Error 입니다."
-    }).end()
-})
+router.post("/404", (req, res) => {
+  res
+    .status(404)
+    .send({
+      status: false,
+      message: "404 Post 방식의 Error 입니다.",
+    })
+    .end();
+});
 
 /**
  * @swagger
@@ -122,18 +131,23 @@ router.post('/404', (req, res) => {
  *                          contents:
  *                              type: string
  *                              example: Error Contents
- * 
+ *
  */
-router.get('/404', (req, res) => {
-    const erroMsg = {
-        "name": "Hello",
-        "contents": "Error Contents"
-    }
+router.get("/404", (req, res) => {
+  const erroMsg = {
+    name: "Hello",
+    contents: "Error Contents",
+  };
 
-    res.status(404).send({
-        status: false,
-        message: erroMsg
-    }).end()
-})
+  res
+    .status(404)
+    .send({
+      status: false,
+      message: erroMsg,
+    })
+    .end();
+});
 
-module.exports = router
+router.get("/404/token", (req, res) => {});
+
+module.exports = router;
