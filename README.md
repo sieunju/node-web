@@ -16,3 +16,8 @@
 
 ![](https://raw.githubusercontent.com/sieunju/node-web/develop/example_storage/node-web-arch.drawio.png)
 
+### 서버 실행하는 명령어
+
+```shell
+node web-server.js
+```
