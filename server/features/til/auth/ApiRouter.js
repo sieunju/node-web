@@ -58,7 +58,7 @@ router.post("/refresh", (req, res) => {
     },
     jwtSecret,
     {
-      expiresIn: "1m",
+      expiresIn: "5m",
       issuer: "sieun ju",
       algorithm: "HS256",
     }
