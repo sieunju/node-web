@@ -26,6 +26,12 @@ const jwtSecret = process.env.JWT_SECRET;
  *              email:
  *                type: string
  *                example: test@naver.com
+ *              delay:
+ *                type: integer
+ *                example: 500
+ *              expiredTime:
+ *                type: string
+ *                example: 5m
  *    responses:
  *      200:
  *        content:
@@ -50,6 +56,8 @@ router.post("/refresh", (req, res) => {
   // Refresh Token..
   // var token = req.header("Authorization");
   var email = req.body.email;
+  var timeDelay = req.body.delay ? req.body.delay : 0;
+  var expiredTime = req.body.expiredTime ? req.body.expiredTime : "5m";
   // 만료 1분
   var refreshToken = jwt.sign(
     {
@@ -58,22 +66,24 @@ router.post("/refresh", (req, res) => {
     },
     jwtSecret,
     {
-      expiresIn: "5m",
+      expiresIn: expiredTime,
       issuer: "sieun ju",
       algorithm: "HS256",
     }
   );
-  res
-    .status(200)
-    .send({
-      status: true,
-      data: {
-        payload: {
-          token: refreshToken,
+  setTimeout(function () {
+    res
+      .status(200)
+      .send({
+        status: true,
+        data: {
+          payload: {
+            token: refreshToken,
+          },
         },
-      },
-    })
-    .end();
+      })
+      .end();
+  }, timeDelay);
 });
 
 /**
