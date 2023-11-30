@@ -133,52 +133,6 @@ router.post("/expired", (req, res) => {
 /**
  * @swagger
  *
- * /api/til/auth/test:
- *  get:
- *    summary: "TIL 전용 API 테스트 입니다."
- *    description: "만료되는 토큰 발급 받기 입니다."
- *    tags: [TIL, TIL_AUTH]
- *    responses:
- *      200:
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                  status:
- *                      type: boolean
- *                      example: true
- *                  data:
- *                      type: object
- *                      properties:
- *                          payload:
- *                              type: object
- *                              properties:
- *                                  integer:
- *                                      type: date-time
- *                                      example: 112123123123
- *                                  str:
- *                                      type: string
- *                                      example: 그대와 처음 만난 이곳 모든날 모든 순간 좋았다.
- */
-router.get("/test", (req, res) => {
-  res
-    .status(200)
-    .send({
-      status: true,
-      data: {
-        payload: {
-          integer: new Date().getTime(),
-          str: utils.randomMessage(),
-        },
-      },
-    })
-    .end();
-});
-
-/**
- * @swagger
- *
  * /api/til/auth/validate:
  *  get:
  *      summary: "JWT Token 유효성 체크하는 API 입니다."
@@ -219,6 +173,207 @@ router.get("/validate", (req, res) => {
   try {
     decoded = jwt.verify(token, jwtSecret);
     res.status(200).send().end();
+  } catch (err) {
+    res
+      .status(401)
+      .send({
+        status: false,
+        message: err,
+      })
+      .end();
+  }
+});
+
+/**
+ * @swagger
+ *
+ * /api/til/auth/jwt/test:
+ *  get:
+ *    summary: "JWT Token 에 대서 테스트 API 입니다."
+ *    tags: [TIL, TIL_AUTH]
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                status:
+ *                  type: boolean
+ *                  example: true
+ *                data:
+ *                  type: object
+ *                  properties:
+ *                    payload:
+ *                      type: object
+ *                      properties:
+ *                        message:
+ *                          type: string
+ *                          example: JWT Token Test
+ *
+ *      401:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                status:
+ *                  type: boolean
+ *                  example: true
+ *                message:
+ *                  type: string
+ *                  example: error Message
+ */
+router.get("/jwt/test", (req, res) => {
+  var token = req.headers.authorization;
+  let decoded = null;
+  try {
+    decoded = jwt.verify(token, jwtSecret);
+    res
+      .status(200)
+      .send({
+        status: true,
+        data: {
+          payload: {
+            message: "JWT Token Test",
+          },
+        },
+      })
+      .end();
+  } catch (err) {
+    res
+      .status(401)
+      .send({
+        status: false,
+        message: err,
+      })
+      .end();
+  }
+});
+
+/**
+ * @swagger
+ *
+ * /api/til/auth/jwt/test1:
+ *  get:
+ *    summary: "JWT Token 에 대서 테스트 API 입니다. 1"
+ *    tags: [TIL, TIL_AUTH]
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                status:
+ *                  type: boolean
+ *                  example: true
+ *                data:
+ *                  type: object
+ *                  properties:
+ *                    payload:
+ *                      type: object
+ *                      properties:
+ *                        message:
+ *                          type: string
+ *                          example: JWT Token Test
+ *
+ *      401:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                status:
+ *                  type: boolean
+ *                  example: true
+ *                message:
+ *                  type: string
+ *                  example: error Message
+ */
+router.get("/jwt/test1", (req, res) => {
+  var token = req.headers.authorization;
+  let decoded = null;
+  try {
+    decoded = jwt.verify(token, jwtSecret);
+    res
+      .status(200)
+      .send({
+        status: true,
+        data: {
+          payload: {
+            message: "JWT Token Test1",
+          },
+        },
+      })
+      .end();
+  } catch (err) {
+    res
+      .status(401)
+      .send({
+        status: false,
+        message: err,
+      })
+      .end();
+  }
+});
+
+/**
+ * @swagger
+ *
+ * /api/til/auth/jwt/test2:
+ *  get:
+ *    summary: "JWT Token 에 대서 테스트 API 입니다. 2"
+ *    tags: [TIL, TIL_AUTH]
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                status:
+ *                  type: boolean
+ *                  example: true
+ *                data:
+ *                  type: object
+ *                  properties:
+ *                    payload:
+ *                      type: object
+ *                      properties:
+ *                        message:
+ *                          type: string
+ *                          example: JWT Token Test
+ *
+ *      401:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                status:
+ *                  type: boolean
+ *                  example: true
+ *                message:
+ *                  type: string
+ *                  example: error Message
+ */
+router.get("/jwt/test2", (req, res) => {
+  var token = req.headers.authorization;
+  let decoded = null;
+  try {
+    decoded = jwt.verify(token, jwtSecret);
+    res
+      .status(200)
+      .send({
+        status: true,
+        data: {
+          payload: {
+            message: "JWT Token Test2",
+          },
+        },
+      })
+      .end();
   } catch (err) {
     res
       .status(401)
