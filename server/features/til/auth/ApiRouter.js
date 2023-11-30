@@ -229,17 +229,34 @@ router.get("/jwt/test", (req, res) => {
   let decoded = null;
   try {
     decoded = jwt.verify(token, jwtSecret);
-    res
-      .status(200)
-      .send({
-        status: true,
-        data: {
-          payload: {
-            message: "JWT Token Test",
+    let timeDelay = req.timeDelay;
+    if (timeDelay != null) {
+      setTimeout(function () {
+        res
+          .status(200)
+          .send({
+            status: true,
+            data: {
+              payload: {
+                message: "JWT Token Test",
+              },
+            },
+          })
+          .end();
+      }, timeDelay);
+    } else {
+      res
+        .status(200)
+        .send({
+          status: true,
+          data: {
+            payload: {
+              message: "JWT Token Test",
+            },
           },
-        },
-      })
-      .end();
+        })
+        .end();
+    }
   } catch (err) {
     res
       .status(401)
@@ -296,17 +313,34 @@ router.get("/jwt/test1", (req, res) => {
   let decoded = null;
   try {
     decoded = jwt.verify(token, jwtSecret);
-    res
-      .status(200)
-      .send({
-        status: true,
-        data: {
-          payload: {
-            message: "JWT Token Test1",
+    let timeDelay = req.timeDelay;
+    if (timeDelay != null) {
+      setTimeout(function () {
+        res
+          .status(200)
+          .send({
+            status: true,
+            data: {
+              payload: {
+                message: "JWT Token Tes1",
+              },
+            },
+          })
+          .end();
+      }, timeDelay);
+    } else {
+      res
+        .status(200)
+        .send({
+          status: true,
+          data: {
+            payload: {
+              message: "JWT Token Test1",
+            },
           },
-        },
-      })
-      .end();
+        })
+        .end();
+    }
   } catch (err) {
     res
       .status(401)
@@ -363,17 +397,34 @@ router.get("/jwt/test2", (req, res) => {
   let decoded = null;
   try {
     decoded = jwt.verify(token, jwtSecret);
-    res
-      .status(200)
-      .send({
-        status: true,
-        data: {
-          payload: {
-            message: "JWT Token Test2",
+    let timeDelay = req.timeDelay;
+    if (timeDelay != null) {
+      setTimeout(function () {
+        res
+          .status(200)
+          .send({
+            status: true,
+            data: {
+              payload: {
+                message: "JWT Token Test2",
+              },
+            },
+          })
+          .end();
+      }, timeDelay);
+    } else {
+      res
+        .status(200)
+        .send({
+          status: true,
+          data: {
+            payload: {
+              message: "JWT Token Test2",
+            },
           },
-        },
-      })
-      .end();
+        })
+        .end();
+    }
   } catch (err) {
     res
       .status(401)
