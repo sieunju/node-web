@@ -191,6 +191,13 @@ router.get("/validate", (req, res) => {
  *  get:
  *    summary: "JWT Token 에 대서 테스트 API 입니다."
  *    tags: [TIL, TIL_AUTH]
+ *    parameters:
+ *      - in: query
+ *        name: timeDelay
+ *        description: 임의 딜레이 시간
+ *        schema:
+ *          type: int
+ *          example: 0
  *    responses:
  *      200:
  *        content:
@@ -228,23 +235,12 @@ router.get("/jwt/test", (req, res) => {
   var token = req.headers.authorization;
   let decoded = null;
   try {
+    let timeDelay =
+      req.query.timeDelay !== null && req.query.timeDelay !== undefined
+        ? req.query.timeDelay
+        : 0;
     decoded = jwt.verify(token, jwtSecret);
-    let timeDelay = req.timeDelay;
-    if (timeDelay != null) {
-      setTimeout(function () {
-        res
-          .status(200)
-          .send({
-            status: true,
-            data: {
-              payload: {
-                message: "JWT Token Test",
-              },
-            },
-          })
-          .end();
-      }, timeDelay);
-    } else {
+    setTimeout(function () {
       res
         .status(200)
         .send({
@@ -256,7 +252,7 @@ router.get("/jwt/test", (req, res) => {
           },
         })
         .end();
-    }
+    }, timeDelay);
   } catch (err) {
     res
       .status(401)
@@ -275,6 +271,13 @@ router.get("/jwt/test", (req, res) => {
  *  get:
  *    summary: "JWT Token 에 대서 테스트 API 입니다. 1"
  *    tags: [TIL, TIL_AUTH]
+ *    parameters:
+ *      - in: query
+ *        name: timeDelay
+ *        description: 임의 딜레이 시간
+ *        schema:
+ *          type: int
+ *          example: 0
  *    responses:
  *      200:
  *        content:
@@ -312,23 +315,12 @@ router.get("/jwt/test1", (req, res) => {
   var token = req.headers.authorization;
   let decoded = null;
   try {
+    let timeDelay =
+      req.query.timeDelay !== null && req.query.timeDelay !== undefined
+        ? req.query.timeDelay
+        : 0;
     decoded = jwt.verify(token, jwtSecret);
-    let timeDelay = req.timeDelay;
-    if (timeDelay != null) {
-      setTimeout(function () {
-        res
-          .status(200)
-          .send({
-            status: true,
-            data: {
-              payload: {
-                message: "JWT Token Tes1",
-              },
-            },
-          })
-          .end();
-      }, timeDelay);
-    } else {
+    setTimeout(function () {
       res
         .status(200)
         .send({
@@ -340,7 +332,7 @@ router.get("/jwt/test1", (req, res) => {
           },
         })
         .end();
-    }
+    }, timeDelay);
   } catch (err) {
     res
       .status(401)
@@ -359,6 +351,13 @@ router.get("/jwt/test1", (req, res) => {
  *  get:
  *    summary: "JWT Token 에 대서 테스트 API 입니다. 2"
  *    tags: [TIL, TIL_AUTH]
+ *    parameters:
+ *      - in: query
+ *        name: timeDelay
+ *        description: 임의 딜레이 시간
+ *        schema:
+ *          type: int
+ *          example: 0
  *    responses:
  *      200:
  *        content:
@@ -396,23 +395,12 @@ router.get("/jwt/test2", (req, res) => {
   var token = req.headers.authorization;
   let decoded = null;
   try {
+    let timeDelay =
+      req.query.timeDelay !== null && req.query.timeDelay !== undefined
+        ? req.query.timeDelay
+        : 0;
     decoded = jwt.verify(token, jwtSecret);
-    let timeDelay = req.timeDelay;
-    if (timeDelay != null) {
-      setTimeout(function () {
-        res
-          .status(200)
-          .send({
-            status: true,
-            data: {
-              payload: {
-                message: "JWT Token Test2",
-              },
-            },
-          })
-          .end();
-      }, timeDelay);
-    } else {
+    setTimeout(function () {
       res
         .status(200)
         .send({
@@ -424,7 +412,7 @@ router.get("/jwt/test2", (req, res) => {
           },
         })
         .end();
-    }
+    }, timeDelay);
   } catch (err) {
     res
       .status(401)
